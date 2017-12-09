@@ -7,7 +7,6 @@ using System.Web.Security;
 using CW.Infrastructure;
 using CW.Providers;
 using CW.ViewModels;
-using DalToWeb.Interfacies;
 using DalToWeb.Repositories;
 
 namespace CW.Controllers
@@ -15,12 +14,7 @@ namespace CW.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private readonly IUserRepository _repository;
-
-        public AccountController(IUserRepository repository)
-        {
-            this._repository = repository;
-        }
+        private readonly MainContext ctx = new MainContext();
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -85,11 +79,7 @@ namespace CW.Controllers
                 return View(viewModel);
             }
 
-            using (var ctx = new UserContext())
-            {
-                var k = ctx.Users.ToList();
-            }
-                var anyUser = _repository.GetAllUsers().Any(u => u.Email.Contains(viewModel.Email));
+            var anyUser = ctx.Users.Any(u => u.Email.Contains(viewModel.Email));
 
                 if (anyUser)
             {

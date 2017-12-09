@@ -4,9 +4,9 @@ using System.Data.Entity;
 
 namespace DalToWeb.Repositories
 {
-    public class UserContext : DbContext
+    public class MainContext : DbContext
     {
-        public UserContext()
+        public MainContext()
             : base("DefaultConnection")
         {
             

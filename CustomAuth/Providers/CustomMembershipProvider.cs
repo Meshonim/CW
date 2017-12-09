@@ -6,7 +6,6 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
 using DalToWeb;
-using DalToWeb.Interfacies;
 using DalToWeb.Repositories;
 
 namespace CW.Providers
@@ -14,11 +13,7 @@ namespace CW.Providers
     //провайдер членства помогает системе идентифицировать пользователя
     public class CustomMembershipProvider : MembershipProvider
     {
-        public IUserRepository UserRepository
-            => (IUserRepository) DependencyResolver.Current.GetService(typeof (IUserRepository));
-
-        public IRoleRepository RoleRepository
-            => (IRoleRepository) DependencyResolver.Current.GetService(typeof (IRoleRepository));
+        private MainContext ctx = new MainContext();
 
         public MembershipUser CreateUser(string email, string password)
         {
@@ -37,20 +32,21 @@ namespace CW.Providers
                 CreationDate = DateTime.Now
             };
 
-            var role = RoleRepository.GetAllRoles().FirstOrDefault(r => r.Name == "User");
+            var role = ctx.Roles.FirstOrDefault(r => r.Name == "User");
             if (role != null)
             {
                 user.RoleId = role.Id;
             }
 
-            UserRepository.CreateUser(user);
+            ctx.Users.Add(user);
+            ctx.SaveChanges();
             membershipUser = GetUser(email, false);
             return membershipUser;
         }
 
         public override bool ValidateUser(string email, string password)
         {
-            var user = UserRepository.GetUserByEmail(email);
+            var user = ctx.Users.Where(u => u.Email == email).FirstOrDefault();
 
             if (user != null && Crypto.VerifyHashedPassword(user.Password, password))
             //Определяет, соответствуют ли заданный хэш RFC 2898 и пароль друг другу
@@ -62,7 +58,7 @@ namespace CW.Providers
 
         public override MembershipUser GetUser(string email, bool userIsOnline)
         {
-            var user = UserRepository.GetUserByEmail(email);
+            var user = ctx.Users.Where(u => u.Email == email).FirstOrDefault();
 
             if (user == null) return null;
 

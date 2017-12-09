@@ -1,23 +1,18 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using CW.ViewModels;
-using DalToWeb.Interfacies;
+using DalToWeb.Repositories;
 
 namespace CW.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly IUserRepository _repository;
-
-        public HomeController(IUserRepository repository)
-        {
-            this._repository = repository;
-        }
+        private readonly MainContext ctx = new MainContext();
         
         public ActionResult Index()
         {
-            var model = _repository.GetAllUsers().Select(u => new UserViewModel()
+            var model = ctx.Users.Select(u => new UserViewModel()
             {
                 Email = u.Email,
                 CreationDate = u.CreationDate,
@@ -48,7 +43,7 @@ namespace CW.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult UsersEdit()
         {
-            var model = _repository.GetAllUsers().Select(u => new UserViewModel
+            var model = ctx.Users.Select(u => new UserViewModel
             {
                 Email = u.Email,
                 CreationDate = u.CreationDate,
