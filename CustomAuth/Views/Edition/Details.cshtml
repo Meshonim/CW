@@ -1,0 +1,50 @@
+﻿@model DalToWeb.Models.Edition
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Edition</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.House.HouseName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.House.HouseName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Language.LanguageName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Language.LanguageName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EditionTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EditionTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EditionYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EditionYear)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.EditionId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

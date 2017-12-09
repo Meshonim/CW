@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.Profile;
 using DalToWeb;
 using DalToWeb.Repositories;
+using DalToWeb.Models;
 
 namespace CW.Providers
 {

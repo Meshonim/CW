@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using DalToWeb;
 using DalToWeb.Repositories;
+using DalToWeb.Models;
 
 namespace CW.Providers
 {

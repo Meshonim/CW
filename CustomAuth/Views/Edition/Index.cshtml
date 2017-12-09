@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DalToWeb.Models.Edition>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.House.HouseName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Language.LanguageName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EditionTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EditionYear)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.House.HouseName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Language.LanguageName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EditionTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EditionYear)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.EditionId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.EditionId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.EditionId })
+        </td>
+    </tr>
+}
+
+</table>
