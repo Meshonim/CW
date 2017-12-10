@@ -6,7 +6,7 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "ReaderOrder", new { id = ViewBag.EditionId }, FormMethod.Post, null))
 {
     @Html.AntiForgeryToken()
     

@@ -16,7 +16,6 @@ namespace CW.Controllers
         private MainContext db = new MainContext();
 
         // GET: City
-        //[Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View(db.Cities.ToList());
@@ -48,7 +47,7 @@ namespace CW.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CityId,CityName")] City city)
+        public ActionResult Create([Bind(Include = "CityId,CityName,CityPopulation")] City city)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +79,7 @@ namespace CW.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CityId,CityName")] City city)
+        public ActionResult Edit([Bind(Include = "CityId,CityName,CityPopulation")] City city)
         {
             if (ModelState.IsValid)
             {

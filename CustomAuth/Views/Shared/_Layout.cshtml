@@ -21,32 +21,43 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Books", "Index", "Edition")</li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            Edition settings
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Houses", "Index", "House")</li>
-                            <li>@Html.ActionLink("Authors", "Index", "Author")</li>
-                            <li>@Html.ActionLink("Cities", "Index", "City")</li>
-                            <li>@Html.ActionLink("Languages", "Index", "Language")</li>
-                            <li>@Html.ActionLink("Genres", "Index", "Genre")</li>
-                            <li>@Html.ActionLink("Exemplars", "Index", "Exemplar")</li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            User settings
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Users", "Index", "User")</li>
-                            <li>@Html.ActionLink("Roles", "Index", "Role")</li>
-                        </ul>
-                    </li>
-                    
+                    @if (User.IsInRole("User") || User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Books", "Index", "Edition")</li>
+                        <li>
+                            <a href="@Url.Action("Index", "ReaderOrder")" class="btn btn-warning">
+                                Orders
+                                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                            </a>
+                        </li>
+                    }                 
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                Edition settings
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Houses", "Index", "House")</li>
+                                <li>@Html.ActionLink("Authors", "Index", "Author")</li>
+                                <li>@Html.ActionLink("Cities", "Index", "City")</li>
+                                <li>@Html.ActionLink("Languages", "Index", "Language")</li>
+                                <li>@Html.ActionLink("Genres", "Index", "Genre")</li>
+                                <li>@Html.ActionLink("Exemplars", "Index", "Exemplar")</li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                User settings
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Users", "Index", "User")</li>
+                                <li>@Html.ActionLink("Roles", "Index", "Role")</li>
+                            </ul>
+                        </li>
+                    }                 
                     @Html.Partial("_LoginPartial")
                 </ul>
             </div>
@@ -65,7 +76,15 @@
             crossorigin="anonymous"></script>
     <script>
         $(".dpicker").datepicker({ dateFormat: 'dd.mm.yy' });
-        $(".dpickerorder").datepicker({ dateFormat: 'dd.mm.yy' });</script>
+        var startdate = new Date();
+        var days = 10;
+        var date = new Date();
+        var enddate = new Date(date.setTime(date.getTime() + days * 86400000));
+        $(".dpickerorder").datepicker({ dateFormat: 'dd.mm.yy', minDate: startdate, maxDate: enddate});
+        $(".dpickerorder").datepicker("setDate", startdate );
+        $(".dpicker").prop("readonly", true);
+        $(".dpickerorder").prop("readonly", true);
+    </script>
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     

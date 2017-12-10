@@ -13,6 +13,7 @@ namespace DalToWeb.Models
         public string Email { get; set; }
         public string Password { get; set; }
         [DataType(DataType.Date)]
+        [Display(Name = "Creation date")]
         public DateTime CreationDate { get; set; }
 
         public int? RoleId { get; set; }

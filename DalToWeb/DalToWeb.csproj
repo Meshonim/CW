@@ -94,6 +94,14 @@
     <Compile Include="Migrations\201712101735093_Roandcost1.Designer.cs">
       <DependentUpon>201712101735093_Roandcost1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712102226191_CityCorrection.cs" />
+    <Compile Include="Migrations\201712102226191_CityCorrection.Designer.cs">
+      <DependentUpon>201712102226191_CityCorrection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712102226569_CityCorrection1.cs" />
+    <Compile Include="Migrations\201712102226569_CityCorrection1.Designer.cs">
+      <DependentUpon>201712102226569_CityCorrection1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\City.cs" />
@@ -139,6 +147,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712101735093_Roandcost1.resx">
       <DependentUpon>201712101735093_Roandcost1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712102226191_CityCorrection.resx">
+      <DependentUpon>201712102226191_CityCorrection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712102226569_CityCorrection1.resx">
+      <DependentUpon>201712102226569_CityCorrection1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

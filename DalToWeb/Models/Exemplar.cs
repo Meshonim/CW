@@ -9,8 +9,10 @@ namespace DalToWeb.Models
 {
     public class Exemplar
     {
+        [Display(Name = "Exemplar Id")]
         public int ExemplarId { get; set; }
         [Range(1, 1000000)]
+        [Display(Name = "Cost")]
         public decimal ExemplarCost { get; set; }
 
         public int EditionId { get; set; }

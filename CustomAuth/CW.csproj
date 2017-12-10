@@ -216,11 +216,6 @@
     <Content Include="Views\House\Details.cshtml" />
     <Content Include="Views\House\Edit.cshtml" />
     <Content Include="Views\House\Index.cshtml" />
-    <Content Include="Views\City\Create.cshtml" />
-    <Content Include="Views\City\Delete.cshtml" />
-    <Content Include="Views\City\Details.cshtml" />
-    <Content Include="Views\City\Edit.cshtml" />
-    <Content Include="Views\City\Index.cshtml" />
     <Content Include="Views\Role\Create.cshtml" />
     <Content Include="Views\Role\Delete.cshtml" />
     <Content Include="Views\Role\Details.cshtml" />
@@ -251,6 +246,11 @@
     <Content Include="Views\ReaderOrder\Details.cshtml" />
     <Content Include="Views\ReaderOrder\Edit.cshtml" />
     <Content Include="Views\ReaderOrder\Index.cshtml" />
+    <Content Include="Views\City\Create.cshtml" />
+    <Content Include="Views\City\Delete.cshtml" />
+    <Content Include="Views\City\Details.cshtml" />
+    <Content Include="Views\City\Edit.cshtml" />
+    <Content Include="Views\City\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

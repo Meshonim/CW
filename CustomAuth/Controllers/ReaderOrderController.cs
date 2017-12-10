@@ -19,6 +19,12 @@ namespace CW.Controllers
         public ActionResult Index()
         {
             var readerOrders = db.ReaderOrders.Include(r => r.Exemplar).Include(r => r.User);
+            if (!User.IsInRole("Admin"))
+            {
+                var userId = GetCurrentUserId();
+                readerOrders = readerOrders.Where(o => o.UserId == userId);
+            }
+            
             return View(readerOrders.ToList());
         }
 
@@ -37,6 +43,21 @@ namespace CW.Controllers
             return View(readerOrder);
         }
 
+        [NonAction]
+        public List<Exemplar> GetExemplars(int id, int? selfExemplarId)
+        {
+            var exemplarIds = db.Exemplars.Where(ex => ex.EditionId == id).Select(e => e.ExemplarId).ToList();
+            var orders = db.ReaderOrders.Where(o => o.ReaderOrderDateOfIssue <= DateTime.Now && o.ReaderOrderExpiryDate >= DateTime.Now).ToList();
+            foreach (var order in orders)
+            {
+                exemplarIds.Remove(order.ExemplarId);
+            }
+            if (selfExemplarId.HasValue)
+                exemplarIds.Add(selfExemplarId.Value);
+            var exemplars = db.Exemplars.Where(e => exemplarIds.Contains(e.ExemplarId)).ToList();
+            return exemplars;
+        }
+
         // GET: ReaderOrder/Create
         [Authorize]
         public ActionResult Create(int? id)
@@ -50,16 +71,13 @@ namespace CW.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ExemplarId = new SelectList(db.Exemplars.Where(ex => ex.EditionId == id), "ExemplarId", "ExemplarId");
-            var email = User.Identity.Name;
-            var userId = 0;
-            if (email != null)
-            {
-                userId = db.Users.Where(u => u.Email == email).First().Id;
-            }
+            ViewBag.EditionId = id.Value;
+            ViewBag.ExemplarId = new SelectList(GetExemplars(id.Value, null), "ExemplarId", "ExemplarId");
+            var userId = GetCurrentUserId();
             var model = new ReaderOrder()
             {
-                UserId = userId
+                UserId = userId,
+                ReaderOrderExpiryDate = DateTime.Now
             };
             return View(model);
         }
@@ -69,23 +87,38 @@ namespace CW.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ReaderOrderId,ReaderOrderDateOfIssue,ReaderOrderExpiryDate,UserId,ExemplarId")] ReaderOrder readerOrder)
+        public ActionResult Create([Bind(Include = "ReaderOrderId,ReaderOrderDateOfIssue,ReaderOrderExpiryDate,UserId,ExemplarId")] ReaderOrder readerOrder, int? id)
         {
-            if (ModelState.IsValid)
+            bool isValid = true;
+            var orders = db.ReaderOrders.ToList();
+            foreach (var order in orders)
+            {
+
+                if (!(((DateTime.Now < order.ReaderOrderDateOfIssue) && (readerOrder.ReaderOrderExpiryDate < order.ReaderOrderDateOfIssue))
+                    ||
+                    ((DateTime.Now > order.ReaderOrderExpiryDate) && (readerOrder.ReaderOrderExpiryDate > order.ReaderOrderExpiryDate))))
+                    {
+                    isValid = false;
+                    ModelState.AddModelError(string.Empty, "Book is not available");
+                    break;
+                }
+
+                    
+            }
+            if (ModelState.IsValid && readerOrder.ExemplarId != 0 && isValid)
             {
                 readerOrder.ReaderOrderDateOfIssue = DateTime.Now;
                 db.ReaderOrders.Add(readerOrder);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.ExemplarId = new SelectList(db.Exemplars, "ExemplarId", "ExemplarId", readerOrder.ExemplarId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Email", readerOrder.UserId);
+            ViewBag.EditionId = id.Value;
+            ViewBag.ExemplarId = new SelectList(GetExemplars(id.Value, null), "ExemplarId", "ExemplarId", readerOrder.ExemplarId);
             return View(readerOrder);
         }
 
         // GET: ReaderOrder/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, int? editionId)
         {
             if (id == null)
             {
@@ -96,7 +129,8 @@ namespace CW.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ExemplarId = new SelectList(db.Exemplars, "ExemplarId", "ExemplarId", readerOrder.ExemplarId);
+            ViewBag.EditionId = editionId.Value;
+            ViewBag.ExemplarId = new SelectList(GetExemplars(editionId.Value, readerOrder.ExemplarId), "ExemplarId", "ExemplarId", readerOrder.ExemplarId);
             ViewBag.UserId = new SelectList(db.Users, "Id", "Email", readerOrder.UserId);
             return View(readerOrder);
         }
@@ -106,15 +140,23 @@ namespace CW.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ReaderOrderId,ReaderOrderDateOfIssue,ReaderOrderExpiryDate,UserId,ExemplarId")] ReaderOrder readerOrder)
+        public ActionResult Edit([Bind(Include = "ReaderOrderId,ReaderOrderDateOfIssue,ReaderOrderExpiryDate,UserId,ExemplarId")] ReaderOrder readerOrder, int? editionId)
         {
-            if (ModelState.IsValid)
+            int? eId = null;
+            ReaderOrder r = db.ReaderOrders.Find(readerOrder.ReaderOrderId);
+            if (r != null)
+            {
+                eId = r.ExemplarId;
+            }
+            db.Entry(r).State = EntityState.Detached;
+            if (ModelState.IsValid && readerOrder.ExemplarId != 0)
             {
                 db.Entry(readerOrder).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ExemplarId = new SelectList(db.Exemplars, "ExemplarId", "ExemplarId", readerOrder.ExemplarId);
+            ViewBag.EditionId = editionId.Value;
+            ViewBag.ExemplarId = new SelectList(GetExemplars(editionId.Value, eId), "ExemplarId", "ExemplarId", readerOrder.ExemplarId);
             ViewBag.UserId = new SelectList(db.Users, "Id", "Email", readerOrder.UserId);
             return View(readerOrder);
         }
@@ -143,6 +185,20 @@ namespace CW.Controllers
             db.ReaderOrders.Remove(readerOrder);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [NonAction]
+        public int GetCurrentUserId()
+        {
+            var email = User.Identity.Name;
+            var userId = 0;
+            if (email != null)
+            {
+                var user = db.Users.Where(u => u.Email == email).FirstOrDefault();
+                if (user != null)
+                    userId = user.Id;
+            }
+            return userId;
         }
 
         protected override void Dispose(bool disposing)

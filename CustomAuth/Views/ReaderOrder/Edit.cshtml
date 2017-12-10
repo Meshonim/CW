@@ -6,7 +6,7 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "ReaderOrder", new { editionId = ViewBag.EditionId }, FormMethod.Post, null))
 {
     @Html.AntiForgeryToken()
     
@@ -19,7 +19,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ReaderOrderDateOfIssue, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ReaderOrderDateOfIssue, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ReaderOrderDateOfIssue, new { htmlAttributes = new { @type = "text", @class = "dpicker form-control" } })
                 @Html.ValidationMessageFor(model => model.ReaderOrderDateOfIssue, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -27,7 +27,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ReaderOrderExpiryDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ReaderOrderExpiryDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ReaderOrderExpiryDate, new { htmlAttributes = new { @type = "text", @class = "dpicker form-control" } })
                 @Html.ValidationMessageFor(model => model.ReaderOrderExpiryDate, "", new { @class = "text-danger" })
             </div>
         </div>
