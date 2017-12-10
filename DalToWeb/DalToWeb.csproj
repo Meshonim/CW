@@ -53,9 +53,11 @@
     <Compile Include="Configurations\AuthorConfiguration.cs" />
     <Compile Include="Configurations\CityConfiguration.cs" />
     <Compile Include="Configurations\EdiitonConfiguration.cs" />
+    <Compile Include="Configurations\ExemplarConfiguration.cs" />
     <Compile Include="Configurations\GenreConfiguration.cs" />
     <Compile Include="Configurations\HouseConfiguration.cs" />
     <Compile Include="Configurations\LanguageConfiguration.cs" />
+    <Compile Include="Configurations\ReaderOrderConfiguration.cs" />
     <Compile Include="Migrations\201712091916387_InitialCreate.cs" />
     <Compile Include="Migrations\201712091916387_InitialCreate.Designer.cs">
       <DependentUpon>201712091916387_InitialCreate.cs</DependentUpon>
@@ -76,13 +78,31 @@
     <Compile Include="Migrations\201712100253302_AuthorFull.Designer.cs">
       <DependentUpon>201712100253302_AuthorFull.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712101656322_TrasnlsatorAdd.cs" />
+    <Compile Include="Migrations\201712101656322_TrasnlsatorAdd.Designer.cs">
+      <DependentUpon>201712101656322_TrasnlsatorAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712101726031_Emp.cs" />
+    <Compile Include="Migrations\201712101726031_Emp.Designer.cs">
+      <DependentUpon>201712101726031_Emp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712101727436_EmpFix.cs" />
+    <Compile Include="Migrations\201712101727436_EmpFix.Designer.cs">
+      <DependentUpon>201712101727436_EmpFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712101735093_Roandcost1.cs" />
+    <Compile Include="Migrations\201712101735093_Roandcost1.Designer.cs">
+      <DependentUpon>201712101735093_Roandcost1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Edition.cs" />
+    <Compile Include="Models\Exemplar.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\House.cs" />
     <Compile Include="Models\Language.cs" />
+    <Compile Include="Models\ReaderOrder.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -107,6 +127,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712100253302_AuthorFull.resx">
       <DependentUpon>201712100253302_AuthorFull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712101656322_TrasnlsatorAdd.resx">
+      <DependentUpon>201712101656322_TrasnlsatorAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712101726031_Emp.resx">
+      <DependentUpon>201712101726031_Emp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712101727436_EmpFix.resx">
+      <DependentUpon>201712101727436_EmpFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712101735093_Roandcost1.resx">
+      <DependentUpon>201712101735093_Roandcost1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

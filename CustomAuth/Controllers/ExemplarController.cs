@@ -8,134 +8,115 @@ using System.Web;
 using System.Web.Mvc;
 using DalToWeb.Models;
 using DalToWeb.Repositories;
-using System.IO;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
 
 namespace CW.Controllers
 {
-    public class HouseController : Controller
+    public class ExemplarController : Controller
     {
         private MainContext db = new MainContext();
 
-        // GET: House
+        // GET: Exemplar
         public ActionResult Index()
         {
-            var houses = db.Houses.Include(h => h.City);
-            return View(houses.ToList());
+            var exemplars = db.Exemplars.Include(e => e.Edition);
+            return View(exemplars.ToList());
         }
 
-        // GET: House/Details/5
+        // GET: Exemplar/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            House house = db.Houses.Find(id);
-            if (house == null)
+            Exemplar exemplar = db.Exemplars.Find(id);
+            if (exemplar == null)
             {
                 return HttpNotFound();
             }
-            return View(house);
+            return View(exemplar);
         }
 
-        // GET: House/Create
+        // GET: Exemplar/Create
         public ActionResult Create()
         {
-            ViewBag.CityId = new SelectList(db.Cities, "CityId", "CityName");
+            ViewBag.EditionId = new SelectList(db.Editions, "EditionId", "EditionTitle");
             return View();
         }
 
-        // POST: House/Create
+        // POST: Exemplar/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "HouseId,HouseName,Phone,CityId")] House house)
+        public ActionResult Create([Bind(Include = "ExemplarId,ExemplarCost,EditionId")] Exemplar exemplar)
         {
             if (ModelState.IsValid)
             {
-                db.Houses.Add(house);
+                db.Exemplars.Add(exemplar);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CityId = new SelectList(db.Cities, "CityId", "CityName", house.CityId);
-            return View(house);
+            ViewBag.EditionId = new SelectList(db.Editions, "EditionId", "EditionTitle", exemplar.EditionId);
+            return View(exemplar);
         }
 
-        // GET: House/Edit/5
+        // GET: Exemplar/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            House house = db.Houses.Find(id);
-            if (house == null)
+            Exemplar exemplar = db.Exemplars.Find(id);
+            if (exemplar == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CityId = new SelectList(db.Cities, "CityId", "CityName", house.CityId);
-            return View(house);
+            ViewBag.EditionId = new SelectList(db.Editions, "EditionId", "EditionTitle", exemplar.EditionId);
+            return View(exemplar);
         }
 
-        // POST: House/Edit/5
+        // POST: Exemplar/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "HouseId,HouseName,Phone,CityId")] House house)
+        public ActionResult Edit([Bind(Include = "ExemplarId,ExemplarCost,EditionId")] Exemplar exemplar)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(house).State = EntityState.Modified;
+                db.Entry(exemplar).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CityId = new SelectList(db.Cities, "CityId", "CityName", house.CityId);
-            return View(house);
+            ViewBag.EditionId = new SelectList(db.Editions, "EditionId", "EditionTitle", exemplar.EditionId);
+            return View(exemplar);
         }
 
-        // GET: House/Delete/5
+        // GET: Exemplar/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            House house = db.Houses.Find(id);
-            if (house == null)
+            Exemplar exemplar = db.Exemplars.Find(id);
+            if (exemplar == null)
             {
                 return HttpNotFound();
             }
-            return View(house);
+            return View(exemplar);
         }
 
-        public void Doc()
-        {
-            using (MemoryStream ms = new MemoryStream())
-            using (Document document = new Document(PageSize.A4, 25, 25, 30, 30))
-            using (PdfWriter writer = PdfWriter.GetInstance(document, ms))
-            {
-                document.Open();
-                document.Add(new Paragraph("Hello World"));
-                document.Close();
-                writer.Close();
-                ms.Close();
-                Response.ContentType = "pdf/application";
-                Response.AddHeader("content-disposition", "attachment;filename=Report.pdf");
-                Response.OutputStream.Write(ms.GetBuffer(), 0, ms.GetBuffer().Length);
-            }
-        }
-
+        // POST: Exemplar/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            House house = db.Houses.Find(id);
-            db.Houses.Remove(house);
+            Exemplar exemplar = db.Exemplars.Find(id);
+            db.Exemplars.Remove(exemplar);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

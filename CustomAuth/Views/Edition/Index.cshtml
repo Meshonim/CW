@@ -3,13 +3,25 @@
 @{
     ViewBag.Title = "Books";
 }
+<style>
+    th {
+        background-color: black;
+        color: white;
+    }
+    .table td, .table th {
+        border: none;
+    }
 
+    table.table.table-condensed {
+        border: 1px solid black;
+    }
+</style>
 <h2>Books</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table table-hover">
+<table class="table table-hover table-condensed">
     <tr>
         <th>
             Author(s)
@@ -38,7 +50,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            <b>Authors:</b><br />
             @foreach (var author in item.Authors)
+            {
+                <text>@author.FullName</text><br />
+            }
+            <b>Trasnlators:</b>:<br />
+            @foreach (var author in item.Translators)
             {
                 <text>@author.FullName</text><br />
             }
@@ -73,9 +91,19 @@
             @Html.DisplayFor(modelItem => item.Language.LanguageName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EditionId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.EditionId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.EditionId })
+            @if (User.IsInRole("User") || User.IsInRole("Admin"))
+            {
+                <a href="@Url.Action("Create", "ReaderOrder", new { id = item.EditionId })" class="btn btn-primary">
+                    Order
+                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                </a>
+
+                if (User.IsInRole("admin"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.EditionId });
+                    @Html.ActionLink("Delete", "Delete", new { id = item.EditionId });
+                }                
+            }
         </td>
     </tr>
 }

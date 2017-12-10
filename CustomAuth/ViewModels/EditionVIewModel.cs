@@ -22,5 +22,8 @@ namespace CW.ViewModels
 
         public List<int> AuthorIds { get; set; }
         public MultiSelectList Authors { get; set; }
+
+        public List<int> TranslatorIds { get; set; }
+        public MultiSelectList Translators { get; set; }
     }
 }

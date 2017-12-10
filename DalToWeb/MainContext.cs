@@ -22,6 +22,8 @@ namespace DalToWeb.Repositories
         public DbSet<Edition> Editions { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Author> Authors { get; set; }
+        public DbSet<Exemplar> Exemplars { get; set; }
+        public DbSet<ReaderOrder> ReaderOrders { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -31,6 +33,8 @@ namespace DalToWeb.Repositories
             modelBuilder.Configurations.Add(new EditionConfiguration());
             modelBuilder.Configurations.Add(new GenreConfiguration());
             modelBuilder.Configurations.Add(new AuthorConfiguration());
+            modelBuilder.Configurations.Add(new ExemplarConfiguration());
+            modelBuilder.Configurations.Add(new ReaderOrderConfiguration());
         }
     }
 }

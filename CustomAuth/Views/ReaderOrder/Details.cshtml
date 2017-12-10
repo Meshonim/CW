@@ -1,0 +1,50 @@
+﻿@model DalToWeb.Models.ReaderOrder
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ReaderOrder</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Exemplar.ExemplarId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Exemplar.ExemplarId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReaderOrderDateOfIssue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReaderOrderDateOfIssue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReaderOrderExpiryDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReaderOrderExpiryDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ReaderOrderId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

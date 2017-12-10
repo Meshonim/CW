@@ -33,6 +33,7 @@
                             <li>@Html.ActionLink("Cities", "Index", "City")</li>
                             <li>@Html.ActionLink("Languages", "Index", "Language")</li>
                             <li>@Html.ActionLink("Genres", "Index", "Genre")</li>
+                            <li>@Html.ActionLink("Exemplars", "Index", "Exemplar")</li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -63,7 +64,8 @@
             integrity="sha256-eEa1kEtgK9ZL6h60VXwDsJ2rxYCwfxi40VZ9E0XwoEA="
             crossorigin="anonymous"></script>
     <script>
-        $(".dpicker").datepicker({ dateFormat: 'dd.mm.yy' });</script>
+        $(".dpicker").datepicker({ dateFormat: 'dd.mm.yy' });
+        $(".dpickerorder").datepicker({ dateFormat: 'dd.mm.yy' });</script>
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     

@@ -18,5 +18,6 @@ namespace DalToWeb.Models
         public string FullName { get; private set; }
 
         public virtual ICollection<Edition> Editions { get; set; }
+        public virtual ICollection<Edition> TranslatedEditions { get; set; }
     }
 }
