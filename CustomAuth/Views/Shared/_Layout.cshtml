@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Authentication Sample</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/modernizr")  
+    <link href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" rel="stylesheet">
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -16,11 +17,35 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Authentication Sample", "About", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Library", "About", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "About", "Home")</li>
+                    <li>@Html.ActionLink("Books", "Index", "Edition")</li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Edition settings
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Houses", "Index", "House")</li>
+                            <li>@Html.ActionLink("Authors", "Index", "Author")</li>
+                            <li>@Html.ActionLink("Cities", "Index", "City")</li>
+                            <li>@Html.ActionLink("Languages", "Index", "Language")</li>
+                            <li>@Html.ActionLink("Genres", "Index", "Genre")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            User settings
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Users", "Index", "User")</li>
+                            <li>@Html.ActionLink("Roles", "Index", "Role")</li>
+                        </ul>
+                    </li>
+                    
                     @Html.Partial("_LoginPartial")
                 </ul>
             </div>
@@ -30,12 +55,17 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Authentication Sample</p>
+            <p>&copy; @DateTime.Now.Year - BSUIR</p>
         </footer>
-    </div>
-
+    </div>    
     @Scripts.Render("~/bundles/jquery")
+    <script src="https://code.jquery.com/ui/1.9.2/jquery-ui.min.js"
+            integrity="sha256-eEa1kEtgK9ZL6h60VXwDsJ2rxYCwfxi40VZ9E0XwoEA="
+            crossorigin="anonymous"></script>
+    <script>
+        $(".dpicker").datepicker({ dateFormat: 'dd.mm.yy' });</script>
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    
 </body>
 </html>

@@ -1,44 +1,76 @@
 ﻿@model IEnumerable<DalToWeb.Models.Edition>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Books";
 }
 
-<h2>Index</h2>
+<h2>Books</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-hover">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.House.HouseName)
+            Author(s)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Language.LanguageName)
+            Cover
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EditionTitle)
+            Title
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EditionYear)
+            Year
         </th>
+        <th>
+            Genres
+        </th>
+        <th>
+            House
+        </th>
+        <th>
+            Language
+        </th>      
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.House.HouseName)
+            @foreach (var author in item.Authors)
+            {
+                <text>@author.FullName</text><br />
+            }
         </td>
+        @{
+            var imgSrc = string.Empty;
+            if (item.EditionImage != null)
+            {
+                var base64 = Convert.ToBase64String(item.EditionImage);
+                imgSrc = string.Format("data:image/gif;base64,{0}", base64);
+            }
+        }
         <td>
-            @Html.DisplayFor(modelItem => item.Language.LanguageName)
+            <img src='@imgSrc' style="height: 100%; width:50%" class="col-md-2" alt="No image" />
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.EditionTitle)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.EditionYear)
+        </td>
+        <td>
+            @foreach (var genre in item.Genres)
+            {
+                <text>@genre.GenreName</text><br/>
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.House.HouseName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Language.LanguageName)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.EditionId }) |

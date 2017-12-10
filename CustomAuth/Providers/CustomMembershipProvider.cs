@@ -14,7 +14,7 @@ namespace CW.Providers
     //провайдер членства помогает системе идентифицировать пользователя
     public class CustomMembershipProvider : MembershipProvider
     {
-        private MainContext ctx = new MainContext();
+        private MainContext db = new MainContext();
 
         public MembershipUser CreateUser(string email, string password)
         {
@@ -33,21 +33,21 @@ namespace CW.Providers
                 CreationDate = DateTime.Now
             };
 
-            var role = ctx.Roles.FirstOrDefault(r => r.Name == "User");
+            var role = db.Roles.FirstOrDefault(r => r.Name == "User");
             if (role != null)
             {
                 user.RoleId = role.Id;
             }
 
-            ctx.Users.Add(user);
-            ctx.SaveChanges();
+            db.Users.Add(user);
+            db.SaveChanges();
             membershipUser = GetUser(email, false);
             return membershipUser;
         }
 
         public override bool ValidateUser(string email, string password)
         {
-            var user = ctx.Users.Where(u => u.Email == email).FirstOrDefault();
+            var user = db.Users.Where(u => u.Email == email).FirstOrDefault();
 
             if (user != null && Crypto.VerifyHashedPassword(user.Password, password))
             //Определяет, соответствуют ли заданный хэш RFC 2898 и пароль друг другу
@@ -59,7 +59,7 @@ namespace CW.Providers
 
         public override MembershipUser GetUser(string email, bool userIsOnline)
         {
-            var user = ctx.Users.Where(u => u.Email == email).FirstOrDefault();
+            var user = db.Users.Where(u => u.Email == email).FirstOrDefault();
 
             if (user == null) return null;
 

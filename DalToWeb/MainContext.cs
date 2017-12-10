@@ -14,7 +14,6 @@ namespace DalToWeb.Repositories
             
         }
 
-        public DbSet<Profile> Profiles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<City> Cities { get; set; }
@@ -22,6 +21,7 @@ namespace DalToWeb.Repositories
         public DbSet<Language> Languages { get; set; }
         public DbSet<Edition> Editions { get; set; }
         public DbSet<Genre> Genres { get; set; }
+        public DbSet<Author> Authors { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -30,6 +30,7 @@ namespace DalToWeb.Repositories
             modelBuilder.Configurations.Add(new LanguageConfiguration());
             modelBuilder.Configurations.Add(new EditionConfiguration());
             modelBuilder.Configurations.Add(new GenreConfiguration());
+            modelBuilder.Configurations.Add(new AuthorConfiguration());
         }
     }
 }

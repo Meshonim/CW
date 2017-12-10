@@ -18,6 +18,12 @@ namespace DalToWeb.Configurations
                 .MapLeftKey("EditionId")
                 .MapRightKey("GenreId"));
 
+            HasMany<Author>(s => s.Authors)
+                .WithMany(c => c.Editions)
+                .Map(m => m.ToTable("Edition_Author")
+                .MapLeftKey("EditionId")
+                .MapRightKey("AuthorId"));
+
             Property(c => c.EditionTitle)
                 .IsRequired()
                 .HasMaxLength(100);

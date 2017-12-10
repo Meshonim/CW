@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
 
-namespace DalToWeb.Models
+namespace CW.ViewModels
 {
-    public class Edition
+    public class EditionViewModel
     {
         public int EditionId { get; set; }
         public string EditionTitle { get; set; }
         public short EditionYear { get; set; }
-
         public byte[] EditionImage { get; set; }
 
         public int HouseId { get; set; }
-        public virtual House House { get; set; }
 
         public short LanguageId { get; set; }
-        public virtual Language Language { get; set; }
 
-        public virtual ICollection<Genre> Genres { get; set; }
-        public virtual ICollection<Author> Authors { get; set; }
+        public List<short> GenreIds { get; set; }
+        public MultiSelectList Genres { get; set; }
+
+        public List<int> AuthorIds { get; set; }
+        public MultiSelectList Authors { get; set; }
     }
 }

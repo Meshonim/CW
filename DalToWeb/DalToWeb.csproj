@@ -50,17 +50,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\AuthorConfiguration.cs" />
     <Compile Include="Configurations\CityConfiguration.cs" />
     <Compile Include="Configurations\EdiitonConfiguration.cs" />
     <Compile Include="Configurations\GenreConfiguration.cs" />
     <Compile Include="Configurations\HouseConfiguration.cs" />
     <Compile Include="Configurations\LanguageConfiguration.cs" />
+    <Compile Include="Migrations\201712091916387_InitialCreate.cs" />
+    <Compile Include="Migrations\201712091916387_InitialCreate.Designer.cs">
+      <DependentUpon>201712091916387_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712092240454_AddImage.cs" />
+    <Compile Include="Migrations\201712092240454_AddImage.Designer.cs">
+      <DependentUpon>201712092240454_AddImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712100219162_Dt.cs" />
+    <Compile Include="Migrations\201712100219162_Dt.Designer.cs">
+      <DependentUpon>201712100219162_Dt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712100241104_Aut.cs" />
+    <Compile Include="Migrations\201712100241104_Aut.Designer.cs">
+      <DependentUpon>201712100241104_Aut.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712100253302_AuthorFull.cs" />
+    <Compile Include="Migrations\201712100253302_AuthorFull.Designer.cs">
+      <DependentUpon>201712100253302_AuthorFull.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Author.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Edition.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\House.cs" />
     <Compile Include="Models\Language.cs" />
-    <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -69,6 +91,23 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201712091916387_InitialCreate.resx">
+      <DependentUpon>201712091916387_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712092240454_AddImage.resx">
+      <DependentUpon>201712092240454_AddImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712100219162_Dt.resx">
+      <DependentUpon>201712100219162_Dt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712100241104_Aut.resx">
+      <DependentUpon>201712100241104_Aut.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712100253302_AuthorFull.resx">
+      <DependentUpon>201712100253302_AuthorFull.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

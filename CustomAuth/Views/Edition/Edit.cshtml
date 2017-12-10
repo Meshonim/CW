@@ -1,4 +1,4 @@
-﻿@model DalToWeb.Models.Edition
+﻿@model CW.ViewModels.EditionViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -6,7 +6,7 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Edition", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -15,6 +15,13 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.EditionId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AuthorIds, "Authors", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.ListBoxFor(i => Model.AuthorIds, Model.Authors, new { @class = "form-control" })
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.EditionTitle, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -49,11 +56,42 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            @Html.LabelFor(model => model.GenreIds, "Genres", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.ListBoxFor(i => Model.GenreIds, Model.Genres, new { @class = "form-control" })
             </div>
         </div>
-    </div>
+
+        @{
+            var imgSrc = string.Empty;
+            if (Model.EditionImage != null)
+            {
+                var base64 = Convert.ToBase64String(Model.EditionImage);
+                imgSrc = string.Format("data:image/gif;base64,{0}", base64);
+            }
+        }
+      
+        <div class="form-group">
+            @Html.Label("Current Image", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <img src='@imgSrc' style="height: 50%; width:30%" class="col-md-2" width="250" height="350" alt="No image" />
+            </div>
+        </div>
+
+            <div class="form-group">
+                @Html.Label("Change Image", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input class="form-control" type="file" name="files"
+                           multiple="multiple" accept=".jpg, .png, .gif" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
 }
 
 <div>

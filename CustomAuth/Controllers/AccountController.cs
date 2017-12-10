@@ -14,7 +14,7 @@ namespace CW.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private readonly MainContext ctx = new MainContext();
+        private readonly MainContext db = new MainContext();
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -79,7 +79,7 @@ namespace CW.Controllers
                 return View(viewModel);
             }
 
-            var anyUser = ctx.Users.Any(u => u.Email.Contains(viewModel.Email));
+            var anyUser = db.Users.Any(u => u.Email.Contains(viewModel.Email));
 
                 if (anyUser)
             {
@@ -135,6 +135,15 @@ namespace CW.Controllers
         public ActionResult LoginPartial()
         {
             return PartialView("_LoginPartial");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

@@ -8,11 +8,11 @@ namespace CW.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly MainContext ctx = new MainContext();
+        private readonly MainContext db = new MainContext();
         
         public ActionResult Index()
         {
-            var model = ctx.Users.Select(u => new UserViewModel()
+            var model = db.Users.Select(u => new UserViewModel()
             {
                 Email = u.Email,
                 CreationDate = u.CreationDate,
@@ -43,7 +43,7 @@ namespace CW.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult UsersEdit()
         {
-            var model = ctx.Users.Select(u => new UserViewModel
+            var model = db.Users.Select(u => new UserViewModel
             {
                 Email = u.Email,
                 CreationDate = u.CreationDate,
@@ -51,6 +51,15 @@ namespace CW.Controllers
             });
 
             return View(model);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }
