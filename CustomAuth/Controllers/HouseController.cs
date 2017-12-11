@@ -19,6 +19,7 @@ namespace CW.Controllers
         private MainContext db = new MainContext();
 
         // GET: House
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var houses = db.Houses.Include(h => h.City);
@@ -26,6 +27,7 @@ namespace CW.Controllers
         }
 
         // GET: House/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -41,6 +43,7 @@ namespace CW.Controllers
         }
 
         // GET: House/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.CityId = new SelectList(db.Cities, "CityId", "CityName");
@@ -51,6 +54,7 @@ namespace CW.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "HouseId,HouseName,Phone,CityId")] House house)
         {
@@ -66,6 +70,7 @@ namespace CW.Controllers
         }
 
         // GET: House/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -85,6 +90,7 @@ namespace CW.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "HouseId,HouseName,Phone,CityId")] House house)
         {
@@ -99,6 +105,7 @@ namespace CW.Controllers
         }
 
         // GET: House/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -114,6 +121,7 @@ namespace CW.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {

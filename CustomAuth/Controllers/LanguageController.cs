@@ -16,12 +16,14 @@ namespace CW.Controllers
         private MainContext db = new MainContext();
 
         // GET: Languages
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View(db.Languages.ToList());
         }
 
         // GET: Languages/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(short? id)
         {
             if (id == null)
@@ -37,6 +39,7 @@ namespace CW.Controllers
         }
 
         // GET: Languages/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -46,6 +49,7 @@ namespace CW.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "LanguageId,LanguageName")] Language language)
         {
@@ -60,6 +64,7 @@ namespace CW.Controllers
         }
 
         // GET: Languages/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(short? id)
         {
             if (id == null)
@@ -78,6 +83,7 @@ namespace CW.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "LanguageId,LanguageName")] Language language)
         {
@@ -91,6 +97,7 @@ namespace CW.Controllers
         }
 
         // GET: Languages/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(short? id)
         {
             if (id == null)
@@ -107,6 +114,7 @@ namespace CW.Controllers
 
         // POST: Languages/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(short id)
         {

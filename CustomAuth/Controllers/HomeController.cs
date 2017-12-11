@@ -40,7 +40,7 @@ namespace CW.Controllers
             //Response.Write(HttpContext.Profile.GetPropertyValue("LastName"));
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Admin")]
         public ActionResult UsersEdit()
         {
             var model = db.Users.Select(u => new UserViewModel

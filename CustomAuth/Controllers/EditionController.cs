@@ -33,6 +33,7 @@ namespace CW.Controllers
         }
 
         // GET: Edition/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -48,6 +49,7 @@ namespace CW.Controllers
         }
 
         // GET: Edition/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.HouseId = new SelectList(db.Houses, "HouseId", "HouseName");
@@ -74,6 +76,7 @@ namespace CW.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "EditionId,EditionTitle,EditionYear,HouseId,LanguageId,EditionTypeId,GenreIds,AuthorIds,TranslatorIds,IllustratorIds")] EditionViewModel model, IEnumerable<HttpPostedFileBase> files)
         {
@@ -120,6 +123,7 @@ namespace CW.Controllers
         }
 
         // GET: Edition/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -155,6 +159,7 @@ namespace CW.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "EditionId,EditionTitle,EditionYear,HouseId,LanguageId,EditionTypeId,GenreIds,AuthorIds,TranslatorIds,IllustratorIds")] EditionViewModel model, IEnumerable<HttpPostedFileBase> files)
         {
@@ -208,6 +213,7 @@ namespace CW.Controllers
         }
 
         // GET: Edition/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -224,6 +230,7 @@ namespace CW.Controllers
 
         // POST: Edition/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {

@@ -16,6 +16,7 @@ namespace CW.Controllers
         private MainContext db = new MainContext();
 
         // GET: User
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var users = db.Users.Include(u => u.Role);
@@ -24,6 +25,7 @@ namespace CW.Controllers
         }
 
         // GET: User/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -39,6 +41,7 @@ namespace CW.Controllers
         }
 
         // GET: User/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.RoleId = new SelectList(db.Roles, "Id", "Name");
@@ -49,6 +52,7 @@ namespace CW.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Email,Password,CreationDate,RoleId")] User user)
         {
@@ -64,6 +68,7 @@ namespace CW.Controllers
         }
 
         // GET: User/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -83,6 +88,7 @@ namespace CW.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Email,Password,CreationDate,RoleId")] User user)
         {
@@ -97,6 +103,7 @@ namespace CW.Controllers
         }
 
         // GET: User/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -113,6 +120,7 @@ namespace CW.Controllers
 
         // POST: User/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {

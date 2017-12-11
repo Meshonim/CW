@@ -22,6 +22,7 @@ namespace CW.Controllers
         }
 
         // GET: News/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
