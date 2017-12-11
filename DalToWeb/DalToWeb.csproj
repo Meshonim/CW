@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\AllocationConfiguration.cs" />
     <Compile Include="Configurations\AuthorConfiguration.cs" />
     <Compile Include="Configurations\CityConfiguration.cs" />
     <Compile Include="Configurations\EdiitonConfiguration.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Configurations\GenreConfiguration.cs" />
     <Compile Include="Configurations\HouseConfiguration.cs" />
     <Compile Include="Configurations\LanguageConfiguration.cs" />
+    <Compile Include="Configurations\NewsConfiguration.cs" />
     <Compile Include="Configurations\ReaderOrderConfiguration.cs" />
     <Compile Include="Migrations\201712091916387_InitialCreate.cs" />
     <Compile Include="Migrations\201712091916387_InitialCreate.Designer.cs">
@@ -102,7 +104,24 @@
     <Compile Include="Migrations\201712102226569_CityCorrection1.Designer.cs">
       <DependentUpon>201712102226569_CityCorrection1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712102351295_Illustrators1.cs" />
+    <Compile Include="Migrations\201712102351295_Illustrators1.Designer.cs">
+      <DependentUpon>201712102351295_Illustrators1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712110056408_Nws.cs" />
+    <Compile Include="Migrations\201712110056408_Nws.Designer.cs">
+      <DependentUpon>201712110056408_Nws.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712110111465_Nws2.cs" />
+    <Compile Include="Migrations\201712110111465_Nws2.Designer.cs">
+      <DependentUpon>201712110111465_Nws2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712110218161_Alc.cs" />
+    <Compile Include="Migrations\201712110218161_Alc.Designer.cs">
+      <DependentUpon>201712110218161_Alc.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Allocation.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Edition.cs" />
@@ -110,6 +129,7 @@
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\House.cs" />
     <Compile Include="Models\Language.cs" />
+    <Compile Include="Models\News.cs" />
     <Compile Include="Models\ReaderOrder.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
@@ -153,6 +173,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712102226569_CityCorrection1.resx">
       <DependentUpon>201712102226569_CityCorrection1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712102351295_Illustrators1.resx">
+      <DependentUpon>201712102351295_Illustrators1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712110056408_Nws.resx">
+      <DependentUpon>201712110056408_Nws.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712110111465_Nws2.resx">
+      <DependentUpon>201712110111465_Nws2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712110218161_Alc.resx">
+      <DependentUpon>201712110218161_Alc.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

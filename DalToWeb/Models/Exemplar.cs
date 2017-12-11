@@ -13,9 +13,15 @@ namespace DalToWeb.Models
         public int ExemplarId { get; set; }
         [Range(1, 1000000)]
         [Display(Name = "Cost")]
+        [Required]
         public decimal ExemplarCost { get; set; }
 
+        [Required]
         public int EditionId { get; set; }
         public virtual Edition Edition { get; set; }
+
+        [Required]
+        public int AllocationId { get; set; }
+        public virtual Allocation Allocation { get; set; }
     }
 }

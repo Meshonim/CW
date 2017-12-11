@@ -24,6 +24,8 @@ namespace DalToWeb.Repositories
         public DbSet<Author> Authors { get; set; }
         public DbSet<Exemplar> Exemplars { get; set; }
         public DbSet<ReaderOrder> ReaderOrders { get; set; }
+        public DbSet<News> News { get; set; }
+        public DbSet<Allocation> Allocations { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -35,6 +37,8 @@ namespace DalToWeb.Repositories
             modelBuilder.Configurations.Add(new AuthorConfiguration());
             modelBuilder.Configurations.Add(new ExemplarConfiguration());
             modelBuilder.Configurations.Add(new ReaderOrderConfiguration());
+            modelBuilder.Configurations.Add(new NewsConfiguration());
+            modelBuilder.Configurations.Add(new AllocationConfiguration());
         }
     }
 }

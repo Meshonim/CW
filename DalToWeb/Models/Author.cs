@@ -13,10 +13,12 @@ namespace DalToWeb.Models
         [Display(Name = "Auhor Id")]
         public int AuthorId { get; set; }
         [Display(Name = "First Name")]
+        [Required]
         public string AuthorFirstName { get; set; }
         [Display(Name = "Middle Name")]
         public string AuthorMiddleName { get; set; }
         [Display(Name = "Last Name")]
+        [Required]
         public string AuthorLastName { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
@@ -24,5 +26,6 @@ namespace DalToWeb.Models
 
         public virtual ICollection<Edition> Editions { get; set; }
         public virtual ICollection<Edition> TranslatedEditions { get; set; }
+        public virtual ICollection<Edition> IllustratedEditions { get; set; }
     }
 }

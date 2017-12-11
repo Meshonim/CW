@@ -5,21 +5,21 @@ using DalToWeb.Repositories;
 
 namespace CW.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly MainContext db = new MainContext();
         
         public ActionResult Index()
         {
-            var model = db.Users.Select(u => new UserViewModel()
-            {
-                Email = u.Email,
-                CreationDate = u.CreationDate,
-                Role = u.Role.Name
-            });                
+            
+            //var model = db.Users.Select(u => new UserViewModel()
+            //{
+            //    Email = u.Email,
+            //    CreationDate = u.CreationDate,
+            //    Role = u.Role.Name
+            //});                
 
-            return View(model);
+            return RedirectToAction("Index", "News");
         }
 
         public ActionResult About()

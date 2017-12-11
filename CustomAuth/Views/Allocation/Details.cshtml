@@ -1,0 +1,34 @@
+﻿@model DalToWeb.Models.Allocation
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Allocation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AllocationValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AllocationValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AllocationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AllocationDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AllocationId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

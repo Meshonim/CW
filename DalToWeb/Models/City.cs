@@ -12,9 +12,11 @@ namespace DalToWeb.Models
         [Display(Name = "City Id")]
         public int CityId { get; set; }
         [Display(Name = "City name")]
+        [Required]
         public string CityName { get; set; }
         [Range(0, 7000000000)]
         [Display(Name = "City population")]
+        [Required]
         public int CityPopulation { get; set; }
 
         public virtual ICollection<House> Houses { get; set; }

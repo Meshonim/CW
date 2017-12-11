@@ -12,6 +12,7 @@ namespace DalToWeb.Models
         [Display(Name = "Language Id")]
         public short LanguageId { get; set; }
         [Display(Name = "Language name")]
+        [Required]
         public string LanguageName { get; set; }
 
         public virtual ICollection<Edition> Editions { get; set; }

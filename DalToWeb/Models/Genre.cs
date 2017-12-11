@@ -12,6 +12,7 @@ namespace DalToWeb.Models
         [Display(Name = "Genre Id")]
         public short GenreId { get; set; }
         [Display(Name = "Genre name")]
+        [Required]
         public string GenreName { get; set; }
 
         public virtual ICollection<Edition> Editions { get; set; }

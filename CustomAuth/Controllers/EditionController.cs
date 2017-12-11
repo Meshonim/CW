@@ -26,7 +26,8 @@ namespace CW.Controllers
                 .Include(e => e.Language)
                 .Include(e => e.Genres)
                 .Include(e => e.Authors)
-                .Include(e => e.Translators);
+                .Include(e => e.Translators)
+                .Include(e => e.Illustrators);
             return View(editions.ToList());
         }
 
@@ -54,8 +55,16 @@ namespace CW.Controllers
             MultiSelectList genresList = new MultiSelectList(db.Genres.ToList(), "GenreId", "GenreName");
             MultiSelectList authorsList = new MultiSelectList(db.Authors.ToList(), "AuthorId", "FullName");
             MultiSelectList translatorsList = new MultiSelectList(db.Authors.ToList(), "AuthorId", "FullName");
+            MultiSelectList illustratorsList = new MultiSelectList(db.Authors.ToList(), "AuthorId", "FullName");
 
-            EditionViewModel model = new EditionViewModel { Genres = genresList, Authors = authorsList, Translators = translatorsList };
+            EditionViewModel model = 
+                new EditionViewModel
+                {
+                    Genres = genresList,
+                    Authors = authorsList,
+                    Translators = translatorsList,
+                    Illustrators = illustratorsList
+                };
 
             return View(model);
         }
@@ -65,7 +74,7 @@ namespace CW.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EditionId,EditionTitle,EditionYear,HouseId,LanguageId,GenreIds,AuthorIds,TranslatorIds")] EditionViewModel model, IEnumerable<HttpPostedFileBase> files)
+        public ActionResult Create([Bind(Include = "EditionId,EditionTitle,EditionYear,HouseId,LanguageId,GenreIds,AuthorIds,TranslatorIds,IllustratorIds")] EditionViewModel model, IEnumerable<HttpPostedFileBase> files)
         {
             if (model.GenreIds == null)
                 model.GenreIds = new List<short>();
@@ -73,6 +82,8 @@ namespace CW.Controllers
                 model.AuthorIds = new List<int>();
             if (model.TranslatorIds == null)
                 model.TranslatorIds = new List<int>();
+            if (model.IllustratorIds == null)
+                model.IllustratorIds = new List<int>();
 
             byte[] image = GetImage(files);        
 
@@ -85,7 +96,8 @@ namespace CW.Controllers
                 EditionImage = image,
                 Genres = db.Genres.Where(g => model.GenreIds.Contains(g.GenreId)).ToList(),
                 Authors = db.Authors.Where(a => model.AuthorIds.Contains(a.AuthorId)).ToList(),
-                Translators = db.Authors.Where(a => model.TranslatorIds.Contains(a.AuthorId)).ToList()
+                Translators = db.Authors.Where(a => model.TranslatorIds.Contains(a.AuthorId)).ToList(),
+                Illustrators = db.Authors.Where(a => model.IllustratorIds.Contains(a.AuthorId)).ToList()
             };
 
             if (ModelState.IsValid)
@@ -100,6 +112,7 @@ namespace CW.Controllers
             model.Genres = new MultiSelectList(db.Genres, "GenreId", "GenreName", null, model.GenreIds);
             model.Authors = new MultiSelectList(db.Authors, "AuthorId", "FullName", null, model.AuthorIds);
             model.Translators = new MultiSelectList(db.Authors, "AuthorId", "FullName", null, model.TranslatorIds);
+            model.Illustrators = new MultiSelectList(db.Authors, "AuthorId", "FullName", null, model.IllustratorIds);
             return View(model);
         }
 
@@ -127,7 +140,8 @@ namespace CW.Controllers
                 LanguageId = edition.LanguageId,
                 Genres = new MultiSelectList(db.Genres, "GenreId", "GenreName", null, edition.Genres.Select(g => g.GenreId)),
                 Authors = new MultiSelectList(db.Authors, "AuthorId", "FullName", null, edition.Authors.Select(g => g.AuthorId)),
-                Translators = new MultiSelectList(db.Authors, "AuthorId", "FullName", null, edition.Translators.Select(g => g.AuthorId))
+                Translators = new MultiSelectList(db.Authors, "AuthorId", "FullName", null, edition.Translators.Select(g => g.AuthorId)),
+                Illustrators = new MultiSelectList(db.Authors, "AuthorId", "FullName", null, edition.Illustrators.Select(g => g.AuthorId))
             };
             return View(model);
         }
@@ -137,7 +151,7 @@ namespace CW.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EditionId,EditionTitle,EditionYear,HouseId,LanguageId,GenreIds,AuthorIds,TranslatorIds")] EditionViewModel model, IEnumerable<HttpPostedFileBase> files)
+        public ActionResult Edit([Bind(Include = "EditionId,EditionTitle,EditionYear,HouseId,LanguageId,GenreIds,AuthorIds,TranslatorIds,IllustratorIds")] EditionViewModel model, IEnumerable<HttpPostedFileBase> files)
         {
             if (model.GenreIds == null)
                 model.GenreIds = new List<short>();
@@ -145,6 +159,8 @@ namespace CW.Controllers
                 model.AuthorIds = new List<int>();
             if (model.TranslatorIds == null)
                 model.TranslatorIds = new List<int>();
+            if (model.IllustratorIds == null)
+                model.IllustratorIds = new List<int>();
 
             byte[] image = GetImage(files);
 
@@ -155,6 +171,7 @@ namespace CW.Controllers
             item.Collection(i => i.Genres).Load();
             item.Collection(i => i.Authors).Load();
             item.Collection(i => i.Translators).Load();
+            item.Collection(i => i.Illustrators).Load();
             edition.EditionTitle = model.EditionTitle;
             edition.EditionYear = model.EditionYear;
             edition.HouseId = model.HouseId;
@@ -167,6 +184,7 @@ namespace CW.Controllers
             edition.Genres = db.Genres.Where(g => model.GenreIds.Contains(g.GenreId)).ToList();
             edition.Authors = db.Authors.Where(g => model.AuthorIds.Contains(g.AuthorId)).ToList();
             edition.Translators = db.Authors.Where(g => model.TranslatorIds.Contains(g.AuthorId)).ToList();
+            edition.Illustrators = db.Authors.Where(g => model.IllustratorIds.Contains(g.AuthorId)).ToList();
             if (ModelState.IsValid)
             {
                 db.SaveChanges();
@@ -178,6 +196,7 @@ namespace CW.Controllers
             model.Genres = new MultiSelectList(db.Genres, "GenreId", "GenreName", null, model.GenreIds);
             model.Authors = new MultiSelectList(db.Authors, "AuthorId", "FullName", null, model.AuthorIds);
             model.Translators = new MultiSelectList(db.Authors, "AuthorId", "FullName", null, model.TranslatorIds);
+            model.Illustrators = new MultiSelectList(db.Authors, "AuthorId", "FullName", null, model.IllustratorIds);
             return View(model);
         }
 

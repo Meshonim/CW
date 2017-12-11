@@ -12,10 +12,12 @@ namespace DalToWeb.Models
         [Display(Name = "House Id")]
         public int HouseId { get; set; }
         [Display(Name = "House name")]
+        [Required]
         public string HouseName { get; set; }
         public string Phone { get; set; }
 
         [Display(Name = "City Id")]
+        [Required]
         public int CityId { get; set; }
         public virtual City City { get; set; }
 

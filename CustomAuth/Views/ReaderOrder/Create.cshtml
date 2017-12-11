@@ -1,17 +1,17 @@
 ﻿@model DalToWeb.Models.ReaderOrder
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "New order";
 }
 
-<h2>Create</h2>
+<h2>Order</h2>
 
 @using (Html.BeginForm("Create", "ReaderOrder", new { id = ViewBag.EditionId }, FormMethod.Post, null))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>ReaderOrder</h4>
+        <h4>New order</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -23,7 +23,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ExemplarId, "ExemplarId", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ExemplarId, "Exemplar Id", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("ExemplarId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ExemplarId, "", new { @class = "text-danger" })

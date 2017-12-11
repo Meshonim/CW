@@ -16,9 +16,11 @@ namespace DalToWeb.Models
         public DateTime ReaderOrderDateOfIssue { get; set; }
         [DataType(DataType.Date)]
         [Display(Name = "Expiry date")]
+        [Required]
         public DateTime ReaderOrderExpiryDate { get; set; }
 
         [Display(Name = "User Id")]
+        [Required]
         public int UserId { get; set; }
         public virtual User User { get; set; }
 

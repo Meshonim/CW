@@ -55,8 +55,13 @@
             {
                 <text>@author.FullName</text><br />
             }
-            <b>Trasnlators:</b>:<br />
+            <b>Translators:</b><br />
             @foreach (var author in item.Translators)
+            {
+                <text>@author.FullName</text><br />
+            }
+            <b>Illustrators:</b><br />
+            @foreach (var author in item.Illustrators)
             {
                 <text>@author.FullName</text><br />
             }
@@ -95,13 +100,19 @@
             {
                 <a href="@Url.Action("Create", "ReaderOrder", new { id = item.EditionId })" class="btn btn-primary">
                     Order
-                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
                 </a>
 
-                if (User.IsInRole("admin"))
+                if (User.IsInRole("Admin"))
                 {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.EditionId });
-                    @Html.ActionLink("Delete", "Delete", new { id = item.EditionId });
+                    <a href="@Url.Action("Edit", "Edition", new { id = item.EditionId })" class="btn btn-success">
+                        Edit
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </a>
+                    <a href="@Url.Action("Delete", "Edition", new { id = item.EditionId })" class="btn btn-danger">
+                        Delete
+                        <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                    </a>
                 }                
             }
         </td>
