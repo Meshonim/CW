@@ -1,0 +1,83 @@
+﻿@model IEnumerable<DalToWeb.Models.Rule>
+
+@{
+    ViewBag.Title = "Rules";
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RuleValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RulePriority)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RuleValue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RulePriority)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RuleId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RuleId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RuleId })
+        </td>
+    </tr>
+}
+
+</table>*@
+<div class="container">
+    <div class="row">
+        <h2>Rules</h2>
+    </div>
+</div>
+
+<div class="editor-indent" style="margin-left: 20px; padding: 0 0 0 40px; margin-right: 50px">
+    @foreach (var item in Model)
+    {
+        var color = string.Empty;
+        if (item.RulePriority == 1)
+        {
+            color = "#F45341";
+        }
+        else if (item.RulePriority == 2)
+        {
+            color = "#FFFFDB";
+        }
+        else
+        {
+            color = "#F2F9FF";
+        }
+        <table style="background-color: @color; border-radius: 10px; margin-bottom: 20px">
+            <tbody>
+                <tr>
+                    <td style="font-size: 48px; opacity: 0.25; padding: 10px; padding-top: 15px; padding-right: 0px; vertical-align: top"><i class="fa fa-info-circle"></i></td>
+                    <td >
+                        <p>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <strong>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.RuleId }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.RuleId })
+                                </strong><br>
+                            }
+                            <ul>
+                                <li>@item.RuleValue</li>
+                            </ul>
+                            
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+    

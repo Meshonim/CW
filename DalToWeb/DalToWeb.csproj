@@ -63,6 +63,7 @@
     <Compile Include="Configurations\EditionTypeConfiguration.cs" />
     <Compile Include="Configurations\OrderReportTemplateConfiguration.cs" />
     <Compile Include="Configurations\ReaderOrderConfiguration.cs" />
+    <Compile Include="Configurations\RuleConfiguration.cs" />
     <Compile Include="Migrations\201712091916387_InitialCreate.cs" />
     <Compile Include="Migrations\201712091916387_InitialCreate.Designer.cs">
       <DependentUpon>201712091916387_InitialCreate.cs</DependentUpon>
@@ -143,6 +144,10 @@
     <Compile Include="Migrations\201712111618340_ORT1.Designer.cs">
       <DependentUpon>201712111618340_ORT1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712111922564_Rule1.cs" />
+    <Compile Include="Migrations\201712111922564_Rule1.Designer.cs">
+      <DependentUpon>201712111922564_Rule1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Allocation.cs" />
     <Compile Include="Models\Author.cs" />
@@ -158,6 +163,7 @@
     <Compile Include="Models\EditionType.cs" />
     <Compile Include="Models\ReaderOrder.cs" />
     <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\Rule.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MainContext.cs" />
@@ -226,6 +232,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712111618340_ORT1.resx">
       <DependentUpon>201712111618340_ORT1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712111922564_Rule1.resx">
+      <DependentUpon>201712111922564_Rule1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

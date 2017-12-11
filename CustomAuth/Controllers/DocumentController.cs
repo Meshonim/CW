@@ -50,8 +50,9 @@ namespace CW.Controllers
             var userId = GetCurrentUserId();
             if (userId == 0)
                 return;
+            var marginTop = template.PrintBackground ? 250 : 30;
             using (MemoryStream ms = new MemoryStream())
-            using (Document document = new Document(PageSize.A4, 25, 25, 250, 30))
+            using (Document document = new Document(PageSize.A4, 25, 25, marginTop, 30))
             using (PdfWriter writer = PdfWriter.GetInstance(document, ms))
             {
                 var orders = db.ReaderOrders
@@ -81,7 +82,10 @@ namespace CW.Controllers
 
                 document.Open();
 
-                document.Add(jpg);
+                if (template.PrintBackground)
+                {
+                    document.Add(jpg);
+                }
 
                 var paragraph = new Paragraph(title, paragraphFont);
                 paragraph.Alignment = Element.ALIGN_CENTER;

@@ -21,13 +21,24 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li>
+                        <a href="@Url.Action("Index", "Rule")" class="btn btn-danger">
+                            <font color="white">Rules</font>
+                            <span style="color:white" class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        </a>
+                    </li>
                     @if (User.IsInRole("User") || User.IsInRole("Admin"))
                     {
-                        <li>@Html.ActionLink("Books", "Index", "Edition")</li>
+                        <li>
+                            <a href="@Url.Action("Index", "Edition")" class="btn btn-info">
+                                <font color="white">Books</font>
+                                <span style="color:white" class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                            </a>
+                        </li>
                         <li>
                             <a href="@Url.Action("Index", "ReaderOrder")" class="btn btn-warning">
-                                Orders
-                                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                                <font color="white">Orders</font>
+                                <span style="color:white" class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
                             </a>
                         </li>
                     }                 
@@ -57,7 +68,6 @@
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Profiles", "Index", "Profile")</li>
                                 <li>@Html.ActionLink("Users", "Index", "User")</li>
                                 <li>@Html.ActionLink("Roles", "Index", "Role")</li>
                             </ul>
