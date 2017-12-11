@@ -1,0 +1,42 @@
+﻿@model DalToWeb.Models.LibraryOrder
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>LibraryOrder</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Edition.EditionTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Edition.EditionTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LibraryOrderStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LibraryOrderStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LibraryOrderCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LibraryOrderCount)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.LibraryOrderId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

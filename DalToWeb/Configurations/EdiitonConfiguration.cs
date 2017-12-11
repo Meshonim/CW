@@ -36,6 +36,10 @@ namespace DalToWeb.Configurations
                 .MapLeftKey("EditionId")
                 .MapRightKey("AuthorId"));
 
+            HasMany<LibraryOrder>(h => h.LibraryOrders)
+                .WithRequired(s => s.Edition)
+                .HasForeignKey<int>(s => s.EditionId);
+
             Property(c => c.EditionTitle)
                 .IsRequired()
                 .HasMaxLength(100);

@@ -58,6 +58,7 @@
     <Compile Include="Configurations\GenreConfiguration.cs" />
     <Compile Include="Configurations\HouseConfiguration.cs" />
     <Compile Include="Configurations\LanguageConfiguration.cs" />
+    <Compile Include="Configurations\LibraryOrderConfiguration.cs" />
     <Compile Include="Configurations\NewsConfiguration.cs" />
     <Compile Include="Configurations\ReaderOrderConfiguration.cs" />
     <Compile Include="Migrations\201712091916387_InitialCreate.cs" />
@@ -120,6 +121,14 @@
     <Compile Include="Migrations\201712110218161_Alc.Designer.cs">
       <DependentUpon>201712110218161_Alc.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712110249528_Lor.cs" />
+    <Compile Include="Migrations\201712110249528_Lor.Designer.cs">
+      <DependentUpon>201712110249528_Lor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712110251524_Lor1.cs" />
+    <Compile Include="Migrations\201712110251524_Lor1.Designer.cs">
+      <DependentUpon>201712110251524_Lor1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Allocation.cs" />
     <Compile Include="Models\Author.cs" />
@@ -129,6 +138,7 @@
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\House.cs" />
     <Compile Include="Models\Language.cs" />
+    <Compile Include="Models\LibraryOrder.cs" />
     <Compile Include="Models\News.cs" />
     <Compile Include="Models\ReaderOrder.cs" />
     <Compile Include="Models\Role.cs" />
@@ -185,6 +195,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712110218161_Alc.resx">
       <DependentUpon>201712110218161_Alc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712110249528_Lor.resx">
+      <DependentUpon>201712110249528_Lor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712110251524_Lor1.resx">
+      <DependentUpon>201712110251524_Lor1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

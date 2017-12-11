@@ -146,6 +146,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HouseController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
+    <Compile Include="Controllers\LibraryOrderController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\ReaderOrderController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
@@ -238,11 +239,6 @@
     <Content Include="Views\Author\Details.cshtml" />
     <Content Include="Views\Author\Edit.cshtml" />
     <Content Include="Views\Author\Index.cshtml" />
-    <Content Include="Views\Exemplar\Create.cshtml" />
-    <Content Include="Views\Exemplar\Delete.cshtml" />
-    <Content Include="Views\Exemplar\Details.cshtml" />
-    <Content Include="Views\Exemplar\Edit.cshtml" />
-    <Content Include="Views\Exemplar\Index.cshtml" />
     <Content Include="Views\ReaderOrder\Create.cshtml" />
     <Content Include="Views\ReaderOrder\Delete.cshtml" />
     <Content Include="Views\ReaderOrder\Details.cshtml" />
@@ -263,6 +259,16 @@
     <Content Include="Views\Allocation\Details.cshtml" />
     <Content Include="Views\Allocation\Edit.cshtml" />
     <Content Include="Views\Allocation\Index.cshtml" />
+    <Content Include="Views\Exemplar\Create.cshtml" />
+    <Content Include="Views\Exemplar\Delete.cshtml" />
+    <Content Include="Views\Exemplar\Details.cshtml" />
+    <Content Include="Views\Exemplar\Edit.cshtml" />
+    <Content Include="Views\Exemplar\Index.cshtml" />
+    <Content Include="Views\LibraryOrder\Create.cshtml" />
+    <Content Include="Views\LibraryOrder\Delete.cshtml" />
+    <Content Include="Views\LibraryOrder\Details.cshtml" />
+    <Content Include="Views\LibraryOrder\Edit.cshtml" />
+    <Content Include="Views\LibraryOrder\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

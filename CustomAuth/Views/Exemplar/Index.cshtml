@@ -12,7 +12,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ExemplarId)
+            Exemplar Id
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Allocation.AllocationValue)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Edition.EditionTitle)
@@ -27,6 +30,9 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.ExemplarId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Allocation.AllocationValue)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Edition.EditionTitle)

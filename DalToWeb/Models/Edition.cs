@@ -29,7 +29,7 @@ namespace DalToWeb.Models
         public virtual Language Language { get; set; }
 
         public virtual ICollection<Exemplar> Exemplars { get; set; }
-
+        public virtual ICollection<LibraryOrder> LibraryOrders { get; set; }
         public virtual ICollection<Genre> Genres { get; set; }
         public virtual ICollection<Author> Authors { get; set; }
         public virtual ICollection<Author> Translators { get; set; }
