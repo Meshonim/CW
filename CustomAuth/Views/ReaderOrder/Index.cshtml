@@ -77,6 +77,10 @@
             @if (User.IsInRole("Admin"))
             {
             @Html.ActionLink("Edit", "Edit", new { id = item.ReaderOrderId, editionId = item.Exemplar.EditionId });
+            }
+            <text>|</text>
+            @if (User.IsInRole("Admin"))
+            {
             @Html.ActionLink("Delete", "Delete", new { id = item.ReaderOrderId });
             }
         </td>
