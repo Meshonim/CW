@@ -113,23 +113,6 @@ namespace CW.Controllers
             return View(house);
         }
 
-        public void Doc()
-        {
-            using (MemoryStream ms = new MemoryStream())
-            using (Document document = new Document(PageSize.A4, 25, 25, 30, 30))
-            using (PdfWriter writer = PdfWriter.GetInstance(document, ms))
-            {
-                document.Open();
-                document.Add(new Paragraph("Hello World"));
-                document.Close();
-                writer.Close();
-                ms.Close();
-                Response.ContentType = "pdf/application";
-                Response.AddHeader("content-disposition", "attachment;filename=Report.pdf");
-                Response.OutputStream.Write(ms.GetBuffer(), 0, ms.GetBuffer().Length);
-            }
-        }
-
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

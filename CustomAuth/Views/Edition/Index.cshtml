@@ -56,17 +56,17 @@
             <b>Authors:</b><br />
             @foreach (var author in item.Authors)
             {
-                <text>@author.FullName</text><br />
+                <text>@author.FullName</text><br /><hr />
             }
             <b>Translators:</b><br />
             @foreach (var author in item.Translators)
             {
-                <text>@author.FullName</text><br />
+                <text>@author.FullName</text><br /><hr />
             }
             <b>Illustrators:</b><br />
             @foreach (var author in item.Illustrators)
             {
-                <text>@author.FullName</text><br />
+                <text>@author.FullName</text><br /><hr />
             }
         </td>
         @{
@@ -78,7 +78,7 @@
             }
         }
         <td>
-            <img src='@imgSrc' style="height: 100%; width:50%" class="col-md-2" alt="No image" />
+            <img src='@imgSrc' style="height: 100%; width:100%" class="col-md-2" alt="No image" />
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.EditionTitle)
@@ -89,14 +89,14 @@
         <td>
             @foreach (var genre in item.Genres)
             {
-                <text>@genre.GenreName</text><br/>
+                <text>@genre.GenreName</text><br/><hr />
             }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.House.HouseName)
         </td>
         <td>
-            <p title="<h4><br>@item.EditionType.EditionTypeName<br></h4><p>@item.EditionType.EditionTypeDescription</p>" data-html="true" data-toggle="tooltip">@item.EditionType.EditionTypeName</p>
+            <p style="color:blue;" data-placement="left" title="@item.EditionType.EditionTypeName" data-content="@item.EditionType.EditionTypeDescription" data-html="true" data-toggle="popover">@item.EditionType.EditionTypeName</p>
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Language.LanguageName)

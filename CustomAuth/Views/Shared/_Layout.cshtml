@@ -47,7 +47,7 @@
                                 <li>@Html.ActionLink("Genres", "Index", "Genre")</li>
                                 <li>@Html.ActionLink("Allocations", "Index", "Allocation")</li>
                                 <li>@Html.ActionLink("Exemplars", "Index", "Exemplar")</li>
-                                <li>@Html.ActionLink("Library orders", "Index", "Library order")</li>
+                                <li>@Html.ActionLink("Library orders", "Index", "LibraryOrder")</li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -89,7 +89,10 @@
         $(".dpicker").prop("readonly", true);
         $(".dpickerorder").prop("readonly", true);
         $(document).ready(function () {
-            $('[data-toggle="tooltip"]').tooltip();
+            $("#modalDialogDocumentButton").click(function () {
+                $('#modalDialogDocument').modal('show');
+            });
+            $('[data-toggle="popover"]').popover();
         });
     </script>
     @Scripts.Render("~/bundles/bootstrap")

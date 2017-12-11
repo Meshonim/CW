@@ -18,6 +18,7 @@ namespace CW.Controllers
         // GET: ReaderOrder
         public ActionResult Index()
         {
+            ViewBag.DocumentTemplates = new SelectList(db.Editions, "EditionId", "EditionTitle");
             var readerOrders = db.ReaderOrders.Include(r => r.Exemplar).Include(r => r.User);
             if (!User.IsInRole("Admin"))
             {
