@@ -11,20 +11,18 @@ using DalToWeb.Repositories;
 
 namespace CW.Controllers
 {
-    public class LibraryOrderController : Controller
+    public class LibraryReportTemplateController : Controller
     {
         private MainContext db = new MainContext();
 
-        // GET: LibraryOrder
+        // GET: LibraryReportTemplate
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            ViewBag.LibraryTemplates = new SelectList(db.LibraryReportTemplates, "LibraryReportTemplateId", "TemplateName");
-            var libraryOrders = db.LibraryOrders.Include(l => l.Edition);
-            return View(libraryOrders.ToList());
+            return View(db.LibraryReportTemplates.ToList());
         }
 
-        // GET: LibraryOrder/Details/5
+        // GET: LibraryReportTemplate/Details/5
         [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
@@ -32,42 +30,40 @@ namespace CW.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LibraryOrder libraryOrder = db.LibraryOrders.Find(id);
-            if (libraryOrder == null)
+            LibraryReportTemplate libraryReportTemplate = db.LibraryReportTemplates.Find(id);
+            if (libraryReportTemplate == null)
             {
                 return HttpNotFound();
             }
-            return View(libraryOrder);
+            return View(libraryReportTemplate);
         }
 
-        // GET: LibraryOrder/Create
+        // GET: LibraryReportTemplate/Create
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
-            ViewBag.EditionId = new SelectList(db.Editions, "EditionId", "EditionTitle");
             return View();
         }
 
-        // POST: LibraryOrder/Create
+        // POST: LibraryReportTemplate/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LibraryOrderId,LibraryOrderStatus,LibraryOrderCount,EditionId")] LibraryOrder libraryOrder)
+        public ActionResult Create([Bind(Include = "LibraryReportTemplateId,TemplateName,PrintHeaders,Autosized,MaxCount")] LibraryReportTemplate libraryReportTemplate)
         {
             if (ModelState.IsValid)
             {
-                db.LibraryOrders.Add(libraryOrder);
+                db.LibraryReportTemplates.Add(libraryReportTemplate);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.EditionId = new SelectList(db.Editions, "EditionId", "EditionTitle", libraryOrder.EditionId);
-            return View(libraryOrder);
+            return View(libraryReportTemplate);
         }
 
-        // GET: LibraryOrder/Edit/5
+        // GET: LibraryReportTemplate/Edit/5
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
@@ -75,34 +71,32 @@ namespace CW.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LibraryOrder libraryOrder = db.LibraryOrders.Find(id);
-            if (libraryOrder == null)
+            LibraryReportTemplate libraryReportTemplate = db.LibraryReportTemplates.Find(id);
+            if (libraryReportTemplate == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.EditionId = new SelectList(db.Editions, "EditionId", "EditionTitle", libraryOrder.EditionId);
-            return View(libraryOrder);
+            return View(libraryReportTemplate);
         }
 
-        // POST: LibraryOrder/Edit/5
+        // POST: LibraryReportTemplate/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "LibraryOrderId,LibraryOrderStatus,LibraryOrderCount,EditionId")] LibraryOrder libraryOrder)
+        public ActionResult Edit([Bind(Include = "LibraryReportTemplateId,TemplateName,PrintHeaders,Autosized,MaxCount")] LibraryReportTemplate libraryReportTemplate)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(libraryOrder).State = EntityState.Modified;
+                db.Entry(libraryReportTemplate).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.EditionId = new SelectList(db.Editions, "EditionId", "EditionTitle", libraryOrder.EditionId);
-            return View(libraryOrder);
+            return View(libraryReportTemplate);
         }
 
-        // GET: LibraryOrder/Delete/5
+        // GET: LibraryReportTemplate/Delete/5
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
@@ -110,22 +104,22 @@ namespace CW.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LibraryOrder libraryOrder = db.LibraryOrders.Find(id);
-            if (libraryOrder == null)
+            LibraryReportTemplate libraryReportTemplate = db.LibraryReportTemplates.Find(id);
+            if (libraryReportTemplate == null)
             {
                 return HttpNotFound();
             }
-            return View(libraryOrder);
+            return View(libraryReportTemplate);
         }
 
-        // POST: LibraryOrder/Delete/5
+        // POST: LibraryReportTemplate/Delete/5
         [HttpPost, ActionName("Delete")]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            LibraryOrder libraryOrder = db.LibraryOrders.Find(id);
-            db.LibraryOrders.Remove(libraryOrder);
+            LibraryReportTemplate libraryReportTemplate = db.LibraryReportTemplates.Find(id);
+            db.LibraryReportTemplates.Remove(libraryReportTemplate);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

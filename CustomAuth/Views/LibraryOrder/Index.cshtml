@@ -9,6 +9,39 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<!-- Modal -->
+<div class="modal fade" id="modalDialogDocument" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Generate report</h4>
+
+            </div>
+
+
+            @using (Html.BeginForm("GenerateExcel", "Document", FormMethod.Post))
+            {
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Choose template</label>
+                        <div class="col-md-10">
+                            @Html.DropDownList("templateId", ViewBag.LibraryTemplates as SelectList, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" type="submit">
+                        <span class="glyphicon glyphicon-file"></span>
+                        Generate
+                    </button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<button id="modalDialogDocumentButton" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalDialogDocument">Generate report</button>
 <table class="table">
     <tr>  
         <th>

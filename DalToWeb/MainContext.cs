@@ -30,6 +30,7 @@ namespace DalToWeb.Repositories
         public DbSet<EditionType> EditionTypes { get; set; }
         public DbSet<OrderReportTemplate> OrderReportTemplates { get; set; }
         public DbSet<Rule> Rules { get; set; }
+        public DbSet<LibraryReportTemplate> LibraryReportTemplates { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -47,6 +48,7 @@ namespace DalToWeb.Repositories
             modelBuilder.Configurations.Add(new EditionTypeConfiguration());
             modelBuilder.Configurations.Add(new OrderReportTemplateConfiguration());
             modelBuilder.Configurations.Add(new RuleConfiguration());
+            modelBuilder.Configurations.Add(new LibraryReportTemplateConfiguration());
         }
     }
 }

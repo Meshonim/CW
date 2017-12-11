@@ -1,0 +1,50 @@
+﻿@model DalToWeb.Models.LibraryReportTemplate
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>LibraryReportTemplate</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TemplateName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TemplateName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrintHeaders)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrintHeaders)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Autosized)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Autosized)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxCount)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.LibraryReportTemplateId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

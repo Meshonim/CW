@@ -10,6 +10,11 @@ using System.Web;
 using System.Data.Entity;
 using System.Web.Mvc;
 using System.Globalization;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
+using NPOI.HSSF.UserModel;
+using NPOI.SS.Util;
+using System.Data;
 
 namespace CW.Controllers
 {
@@ -29,6 +34,80 @@ namespace CW.Controllers
                     userId = user.Id;
             }
             return userId;
+        }
+
+        [Authorize(Roles = "Admin")]
+        public void GenerateExcel(int? templateId)
+        {
+            var template = db.LibraryReportTemplates.Find(templateId);
+            if (template == null)
+            {
+                template = new LibraryReportTemplate()
+                {
+                    TemplateName = "Default",
+                    PrintHeaders = false,
+                    Autosized = false,
+                    MaxCount = 100
+                };
+            }
+
+            var lorders = db.LibraryOrders.Take(template.MaxCount).ToList();
+            IWorkbook workbook;
+            workbook = new XSSFWorkbook();
+
+            ISheet sheet = workbook.CreateSheet("Library orders"); 
+            
+            var st = workbook.CreateCellStyle();
+            st.FillForegroundColor = IndexedColors.Grey25Percent.Index;
+            st.FillPattern = FillPattern.SolidForeground;
+
+            IRow row1 = sheet.CreateRow(0);
+            var columnNames = new string[] { "Status", "Title", "Count" };
+
+            if (template.PrintHeaders)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    ICell cell = row1.CreateCell(j);
+                    String columnName = columnNames[j];
+                    cell.CellStyle = st;
+                    cell.SetCellValue(columnName);
+                }
+            }       
+
+            for (int i = 0; i < lorders.Count; i++)
+            {
+                IRow row = sheet.CreateRow(i + 1);
+                ICell cell = null;
+                cell = row.CreateCell(0);
+                var boolValue = "Неактивен";
+                if (lorders[i].LibraryOrderStatus)
+                {
+                    boolValue = "Активен";
+                }
+                cell.SetCellValue(boolValue);
+                cell = row.CreateCell(1);
+                cell.SetCellValue(lorders[i].Edition.EditionTitle);
+                cell = row.CreateCell(2);
+                cell.SetCellValue(lorders[i].LibraryOrderCount);
+            }
+
+            if (template.Autosized)
+            {
+                sheet.AutoSizeColumn(0);
+                sheet.AutoSizeColumn(1);
+                sheet.AutoSizeColumn(2);
+            }          
+
+            using (var exportData = new MemoryStream())
+            {
+                Response.Clear();
+                workbook.Write(exportData);
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}", "Library orders report.xlsx"));
+                Response.BinaryWrite(exportData.ToArray());
+                Response.End();
+            }
         }
 
         // GET: Document
@@ -76,9 +155,15 @@ namespace CW.Controllers
                     jpg.Alignment = iTextSharp.text.Image.UNDERLYING;
                 }
 
-                BaseFont baseFont = BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
-                Font f = new Font(baseFont, 12);
-                Font paragraphFont = new Font(baseFont, 20, Font.BOLD);
+                iTextSharp.text.pdf.BaseFont baseFont = 
+                    iTextSharp.text.pdf.BaseFont.CreateFont
+                    (
+                        path, 
+                        iTextSharp.text.pdf.BaseFont.IDENTITY_H, 
+                        iTextSharp.text.pdf.BaseFont.NOT_EMBEDDED
+                        );
+                iTextSharp.text.Font f = new iTextSharp.text.Font(baseFont, 12);
+                iTextSharp.text.Font paragraphFont = new iTextSharp.text.Font(baseFont, 20, iTextSharp.text.Font.BOLD);
 
                 document.Open();
 

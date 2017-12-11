@@ -59,6 +59,7 @@
     <Compile Include="Configurations\HouseConfiguration.cs" />
     <Compile Include="Configurations\LanguageConfiguration.cs" />
     <Compile Include="Configurations\LibraryOrderConfiguration.cs" />
+    <Compile Include="Configurations\LibraryReportTemplateConfiguration.cs" />
     <Compile Include="Configurations\NewsConfiguration.cs" />
     <Compile Include="Configurations\EditionTypeConfiguration.cs" />
     <Compile Include="Configurations\OrderReportTemplateConfiguration.cs" />
@@ -148,10 +149,15 @@
     <Compile Include="Migrations\201712111922564_Rule1.Designer.cs">
       <DependentUpon>201712111922564_Rule1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712112320214_LR1.cs" />
+    <Compile Include="Migrations\201712112320214_LR1.Designer.cs">
+      <DependentUpon>201712112320214_LR1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Allocation.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\City.cs" />
+    <Compile Include="Models\LibraryReportTemplate.cs" />
     <Compile Include="Models\OrderReportTemplate.cs" />
     <Compile Include="Models\Edition.cs" />
     <Compile Include="Models\Exemplar.cs" />
@@ -235,6 +241,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712111922564_Rule1.resx">
       <DependentUpon>201712111922564_Rule1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712112320214_LR1.resx">
+      <DependentUpon>201712112320214_LR1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

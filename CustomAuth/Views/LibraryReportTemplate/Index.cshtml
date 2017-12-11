@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DalToWeb.Models.LibraryReportTemplate>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TemplateName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrintHeaders)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Autosized)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxCount)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TemplateName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PrintHeaders)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Autosized)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxCount)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.LibraryReportTemplateId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.LibraryReportTemplateId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.LibraryReportTemplateId })
+        </td>
+    </tr>
+}
+
+</table>
