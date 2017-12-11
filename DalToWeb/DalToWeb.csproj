@@ -61,6 +61,7 @@
     <Compile Include="Configurations\LibraryOrderConfiguration.cs" />
     <Compile Include="Configurations\NewsConfiguration.cs" />
     <Compile Include="Configurations\EditionTypeConfiguration.cs" />
+    <Compile Include="Configurations\OrderReportTemplateConfiguration.cs" />
     <Compile Include="Configurations\ReaderOrderConfiguration.cs" />
     <Compile Include="Migrations\201712091916387_InitialCreate.cs" />
     <Compile Include="Migrations\201712091916387_InitialCreate.Designer.cs">
@@ -134,11 +135,19 @@
     <Compile Include="Migrations\201712110518535_Et1.Designer.cs">
       <DependentUpon>201712110518535_Et1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712111611388_ORT.cs" />
+    <Compile Include="Migrations\201712111611388_ORT.Designer.cs">
+      <DependentUpon>201712111611388_ORT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712111618340_ORT1.cs" />
+    <Compile Include="Migrations\201712111618340_ORT1.Designer.cs">
+      <DependentUpon>201712111618340_ORT1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Allocation.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\City.cs" />
-    <Compile Include="Models\DocumentTemplate.cs" />
+    <Compile Include="Models\OrderReportTemplate.cs" />
     <Compile Include="Models\Edition.cs" />
     <Compile Include="Models\Exemplar.cs" />
     <Compile Include="Models\Genre.cs" />
@@ -211,6 +220,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712110518535_Et1.resx">
       <DependentUpon>201712110518535_Et1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712111611388_ORT.resx">
+      <DependentUpon>201712111611388_ORT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712111618340_ORT1.resx">
+      <DependentUpon>201712111618340_ORT1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

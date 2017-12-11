@@ -18,7 +18,7 @@ namespace CW.Controllers
         // GET: ReaderOrder
         public ActionResult Index()
         {
-            ViewBag.DocumentTemplates = new SelectList(db.Editions, "EditionId", "EditionTitle");
+            ViewBag.DocumentTemplates = new SelectList(db.OrderReportTemplates, "OrderReportTemplateId", "TemplateName");
             var readerOrders = db.ReaderOrders.Include(r => r.Exemplar).Include(r => r.User);
             if (!User.IsInRole("Admin"))
             {
@@ -91,7 +91,7 @@ namespace CW.Controllers
         public ActionResult Create([Bind(Include = "ReaderOrderId,ReaderOrderDateOfIssue,ReaderOrderExpiryDate,UserId,ExemplarId")] ReaderOrder readerOrder, int? id)
         {
             bool isValid = true;
-            var orders = db.ReaderOrders.ToList();
+            var orders = db.ReaderOrders.Where(o => o.ExemplarId == readerOrder.ExemplarId).ToList();
             foreach (var order in orders)
             {
 

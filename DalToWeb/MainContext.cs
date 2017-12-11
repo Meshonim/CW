@@ -28,6 +28,7 @@ namespace DalToWeb.Repositories
         public DbSet<Allocation> Allocations { get; set; }
         public DbSet<LibraryOrder> LibraryOrders { get; set; }
         public DbSet<EditionType> EditionTypes { get; set; }
+        public DbSet<OrderReportTemplate> OrderReportTemplates { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -43,6 +44,7 @@ namespace DalToWeb.Repositories
             modelBuilder.Configurations.Add(new AllocationConfiguration());
             modelBuilder.Configurations.Add(new LibraryOrderConfiguration());
             modelBuilder.Configurations.Add(new EditionTypeConfiguration());
+            modelBuilder.Configurations.Add(new OrderReportTemplateConfiguration());
         }
     }
 }

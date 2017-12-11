@@ -1,0 +1,58 @@
+﻿@model DalToWeb.Models.OrderReportTemplate
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>OrderReportTemplate</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TemplateName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TemplateName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrintBackground)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrintBackground)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrintDayOfWeek)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrintDayOfWeek)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrintEditionTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrintEditionTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxCount)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.OrderReportTemplateId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
