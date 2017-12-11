@@ -141,6 +141,7 @@
     <Compile Include="Controllers\AuthorController.cs" />
     <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\EditionController.cs" />
+    <Compile Include="Controllers\EditionTypeController.cs" />
     <Compile Include="Controllers\ExemplarController.cs" />
     <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -269,6 +270,11 @@
     <Content Include="Views\LibraryOrder\Details.cshtml" />
     <Content Include="Views\LibraryOrder\Edit.cshtml" />
     <Content Include="Views\LibraryOrder\Index.cshtml" />
+    <Content Include="Views\EditionType\Create.cshtml" />
+    <Content Include="Views\EditionType\Delete.cshtml" />
+    <Content Include="Views\EditionType\Details.cshtml" />
+    <Content Include="Views\EditionType\Edit.cshtml" />
+    <Content Include="Views\EditionType\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

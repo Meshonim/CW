@@ -27,7 +27,8 @@ namespace CW.Controllers
                 .Include(e => e.Genres)
                 .Include(e => e.Authors)
                 .Include(e => e.Translators)
-                .Include(e => e.Illustrators);
+                .Include(e => e.Illustrators)
+                .Include(e => e.EditionType);
             return View(editions.ToList());
         }
 
@@ -51,7 +52,7 @@ namespace CW.Controllers
         {
             ViewBag.HouseId = new SelectList(db.Houses, "HouseId", "HouseName");
             ViewBag.LanguageId = new SelectList(db.Languages, "LanguageId", "LanguageName");
-
+            ViewBag.EditionTypeId = new SelectList(db.EditionTypes, "EditionTypeId", "EditionTypeName");
             MultiSelectList genresList = new MultiSelectList(db.Genres.ToList(), "GenreId", "GenreName");
             MultiSelectList authorsList = new MultiSelectList(db.Authors.ToList(), "AuthorId", "FullName");
             MultiSelectList translatorsList = new MultiSelectList(db.Authors.ToList(), "AuthorId", "FullName");
@@ -74,7 +75,7 @@ namespace CW.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EditionId,EditionTitle,EditionYear,HouseId,LanguageId,GenreIds,AuthorIds,TranslatorIds,IllustratorIds")] EditionViewModel model, IEnumerable<HttpPostedFileBase> files)
+        public ActionResult Create([Bind(Include = "EditionId,EditionTitle,EditionYear,HouseId,LanguageId,EditionTypeId,GenreIds,AuthorIds,TranslatorIds,IllustratorIds")] EditionViewModel model, IEnumerable<HttpPostedFileBase> files)
         {
             if (model.GenreIds == null)
                 model.GenreIds = new List<short>();
@@ -91,6 +92,7 @@ namespace CW.Controllers
             {
                 EditionTitle = model.EditionTitle,
                 EditionYear = model.EditionYear,
+                EditionTypeId = model.EditionTypeId,
                 HouseId = model.HouseId,
                 LanguageId = model.LanguageId,
                 EditionImage = image,
@@ -109,6 +111,7 @@ namespace CW.Controllers
 
             ViewBag.HouseId = new SelectList(db.Houses, "HouseId", "HouseName", model.HouseId);
             ViewBag.LanguageId = new SelectList(db.Languages, "LanguageId", "LanguageName", model.LanguageId);
+            ViewBag.EditionTypeId = new SelectList(db.EditionTypes, "EditionTypeId", "EditionTypeName", model.EditionTypeId);
             model.Genres = new MultiSelectList(db.Genres, "GenreId", "GenreName", null, model.GenreIds);
             model.Authors = new MultiSelectList(db.Authors, "AuthorId", "FullName", null, model.AuthorIds);
             model.Translators = new MultiSelectList(db.Authors, "AuthorId", "FullName", null, model.TranslatorIds);
@@ -130,12 +133,14 @@ namespace CW.Controllers
             }
             ViewBag.HouseId = new SelectList(db.Houses, "HouseId", "HouseName", edition.HouseId);
             ViewBag.LanguageId = new SelectList(db.Languages, "LanguageId", "LanguageName", edition.LanguageId);
+            ViewBag.EditionTypeId = new SelectList(db.EditionTypes, "EditionTypeId", "EditionTypeName", edition.EditionTypeId);
             var model = new EditionViewModel()
             {
                 EditionId = edition.EditionId,
                 EditionTitle = edition.EditionTitle,
                 EditionYear = edition.EditionYear,
                 EditionImage = edition.EditionImage,
+                EditionTypeId = edition.EditionTypeId,
                 HouseId = edition.HouseId,
                 LanguageId = edition.LanguageId,
                 Genres = new MultiSelectList(db.Genres, "GenreId", "GenreName", null, edition.Genres.Select(g => g.GenreId)),
@@ -151,7 +156,7 @@ namespace CW.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EditionId,EditionTitle,EditionYear,HouseId,LanguageId,GenreIds,AuthorIds,TranslatorIds,IllustratorIds")] EditionViewModel model, IEnumerable<HttpPostedFileBase> files)
+        public ActionResult Edit([Bind(Include = "EditionId,EditionTitle,EditionYear,HouseId,LanguageId,EditionTypeId,GenreIds,AuthorIds,TranslatorIds,IllustratorIds")] EditionViewModel model, IEnumerable<HttpPostedFileBase> files)
         {
             if (model.GenreIds == null)
                 model.GenreIds = new List<short>();
@@ -174,6 +179,7 @@ namespace CW.Controllers
             item.Collection(i => i.Illustrators).Load();
             edition.EditionTitle = model.EditionTitle;
             edition.EditionYear = model.EditionYear;
+            edition.EditionTypeId = model.EditionTypeId;
             edition.HouseId = model.HouseId;
             edition.LanguageId = model.LanguageId;
             if (image != null)
@@ -193,6 +199,7 @@ namespace CW.Controllers
             model.EditionImage = edition.EditionImage;
             ViewBag.HouseId = new SelectList(db.Houses, "HouseId", "HouseName", model.HouseId);
             ViewBag.LanguageId = new SelectList(db.Languages, "LanguageId", "LanguageName", model.LanguageId);
+            ViewBag.EditionTypeId = new SelectList(db.EditionTypes, "EditionTypeId", "EditionTypeName", model.EditionTypeId);
             model.Genres = new MultiSelectList(db.Genres, "GenreId", "GenreName", null, model.GenreIds);
             model.Authors = new MultiSelectList(db.Authors, "AuthorId", "FullName", null, model.AuthorIds);
             model.Translators = new MultiSelectList(db.Authors, "AuthorId", "FullName", null, model.TranslatorIds);

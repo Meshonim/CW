@@ -27,6 +27,10 @@ namespace DalToWeb.Models
         [Required]
         public short LanguageId { get; set; }
         public virtual Language Language { get; set; }
+        [Display(Name = "Edition Type Id")]
+        [Required]
+        public int EditionTypeId { get; set; }
+        public virtual EditionType EditionType { get; set; }
 
         public virtual ICollection<Exemplar> Exemplars { get; set; }
         public virtual ICollection<LibraryOrder> LibraryOrders { get; set; }

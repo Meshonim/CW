@@ -9,6 +9,7 @@ namespace DalToWeb.Models
 {
     public class Role
     {
+        [Display(Name = "Role Id")]
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }

@@ -40,6 +40,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>@Html.ActionLink("Houses", "Index", "House")</li>
+                                <li>@Html.ActionLink("Edition types", "Index", "EditionType")</li>
                                 <li>@Html.ActionLink("Authors", "Index", "Author")</li>
                                 <li>@Html.ActionLink("Cities", "Index", "City")</li>
                                 <li>@Html.ActionLink("Languages", "Index", "Language")</li>
@@ -55,6 +56,7 @@
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Profiles", "Index", "Profile")</li>
                                 <li>@Html.ActionLink("Users", "Index", "User")</li>
                                 <li>@Html.ActionLink("Roles", "Index", "Role")</li>
                             </ul>
@@ -86,6 +88,9 @@
         $(".dpickerorder").datepicker("setDate", startdate );
         $(".dpicker").prop("readonly", true);
         $(".dpickerorder").prop("readonly", true);
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
     </script>
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

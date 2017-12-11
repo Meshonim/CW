@@ -17,6 +17,8 @@ namespace CW.ViewModels
 
         public short LanguageId { get; set; }
 
+        public int EditionTypeId { get; set; }
+
         public List<short> GenreIds { get; set; }
         public MultiSelectList Genres { get; set; }
 
