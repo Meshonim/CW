@@ -80,10 +80,10 @@ namespace CW.Controllers
                 IRow row = sheet.CreateRow(i + 1);
                 ICell cell = null;
                 cell = row.CreateCell(0);
-                var boolValue = "Неактивен";
+                var boolValue = "Inactive";
                 if (lorders[i].LibraryOrderStatus)
                 {
-                    boolValue = "Активен";
+                    boolValue = "Active";
                 }
                 cell.SetCellValue(boolValue);
                 cell = row.CreateCell(1);

@@ -79,7 +79,7 @@ namespace CW.Controllers
             var model = new ReaderOrder()
             {
                 UserId = userId,
-                ReaderOrderExpiryDate = DateTime.Now
+                ReaderOrderExpiryDate = DateTime.Now.Date
             };
             return View(model);
         }
@@ -97,9 +97,9 @@ namespace CW.Controllers
             foreach (var order in orders)
             {
 
-                if (!(((DateTime.Now < order.ReaderOrderDateOfIssue) && (readerOrder.ReaderOrderExpiryDate < order.ReaderOrderDateOfIssue))
+                if (!(((DateTime.Now.Date < order.ReaderOrderDateOfIssue) && (readerOrder.ReaderOrderExpiryDate < order.ReaderOrderDateOfIssue))
                     ||
-                    ((DateTime.Now > order.ReaderOrderExpiryDate) && (readerOrder.ReaderOrderExpiryDate > order.ReaderOrderExpiryDate))))
+                    ((DateTime.Now.Date > order.ReaderOrderExpiryDate) && (readerOrder.ReaderOrderExpiryDate > order.ReaderOrderExpiryDate))))
                     {
                     isValid = false;
                     ModelState.AddModelError(string.Empty, "Book is not available");
@@ -110,7 +110,7 @@ namespace CW.Controllers
             }
             if (ModelState.IsValid && readerOrder.ExemplarId != 0 && isValid)
             {
-                readerOrder.ReaderOrderDateOfIssue = DateTime.Now;
+                readerOrder.ReaderOrderDateOfIssue = DateTime.Now.Date;
                 db.ReaderOrders.Add(readerOrder);
                 db.SaveChanges();
                 return RedirectToAction("Index");
