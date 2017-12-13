@@ -55,6 +55,10 @@ namespace CW.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (author.AuthorMiddleName == null)
+                {
+                    author.AuthorMiddleName = " ";
+                }
                 db.Authors.Add(author);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -89,6 +93,10 @@ namespace CW.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (author.AuthorMiddleName == null)
+                {
+                    author.AuthorMiddleName = " ";
+                }
                 db.Entry(author).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

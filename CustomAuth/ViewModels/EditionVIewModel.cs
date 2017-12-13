@@ -11,8 +11,10 @@ namespace CW.ViewModels
     {
         public int EditionId { get; set; }
         [Display(Name = "Edition title")]
+        [Required]
         public string EditionTitle { get; set; }
         [Display(Name = "Edition year")]
+        [Required]
         public short EditionYear { get; set; }
         public byte[] EditionImage { get; set; }
         [Display(Name = "House Id")]

@@ -127,108 +127,109 @@ namespace CW.Controllers
                 };
             }
             var userId = GetCurrentUserId();
-            if (userId == 0)
-                return;
-            var marginTop = template.PrintBackground ? 250 : 30;
-            using (MemoryStream ms = new MemoryStream())
-            using (Document document = new Document(PageSize.A4, 25, 25, marginTop, 30))
-            using (PdfWriter writer = PdfWriter.GetInstance(document, ms))
+            if (userId != 0)
             {
-                var orders = db.ReaderOrders
-                    .Include(o => o.Exemplar)
-                    .Where(o => o.UserId == userId)
-                    .OrderByDescending(o => o.ReaderOrderDateOfIssue)
-                    .Take(template.MaxCount)
-                    .ToList();
-                var title = "Order report for " + User.Identity.Name;
-                var dateFormat = template.PrintDayOfWeek ? "D" : "d";
-                var columnCount = template.PrintEditionTitle ? 5 : 4;
-                string path = Server.MapPath(@"~/fonts/ARIALUNI.TTF");
-
-                iTextSharp.text.Image jpg = null;
-                if (template.PrintBackground)
+                var marginTop = template.PrintBackground ? 250 : 30;
+                using (MemoryStream ms = new MemoryStream())
+                using (Document document = new Document(PageSize.A4, 25, 25, marginTop, 30))
+                using (PdfWriter writer = PdfWriter.GetInstance(document, ms))
                 {
-                    string imageFilePath = Server.MapPath(@"~/images/pdf.jpg");
-                    jpg = iTextSharp.text.Image.GetInstance(imageFilePath);
-                    jpg.SetAbsolutePosition(0, 0);
-                    jpg.ScaleToFit(600, 950);
-                    jpg.Alignment = iTextSharp.text.Image.UNDERLYING;
-                }
+                    var orders = db.ReaderOrders
+                        .Include(o => o.Exemplar)
+                        .Where(o => o.UserId == userId)
+                        .OrderByDescending(o => o.ReaderOrderDateOfIssue)
+                        .Take(template.MaxCount)
+                        .ToList();
+                    var title = "Order report for " + User.Identity.Name;
+                    var dateFormat = template.PrintDayOfWeek ? "D" : "d";
+                    var columnCount = template.PrintEditionTitle ? 5 : 4;
+                    string path = Server.MapPath(@"~/fonts/ARIALUNI.TTF");
 
-                iTextSharp.text.pdf.BaseFont baseFont = 
-                    iTextSharp.text.pdf.BaseFont.CreateFont
-                    (
-                        path, 
-                        iTextSharp.text.pdf.BaseFont.IDENTITY_H, 
-                        iTextSharp.text.pdf.BaseFont.NOT_EMBEDDED
-                        );
-                iTextSharp.text.Font f = new iTextSharp.text.Font(baseFont, 12);
-                iTextSharp.text.Font paragraphFont = new iTextSharp.text.Font(baseFont, 20, iTextSharp.text.Font.BOLD);
+                    iTextSharp.text.pdf.BaseFont baseFont =
+                        iTextSharp.text.pdf.BaseFont.CreateFont
+                        (
+                            path,
+                            iTextSharp.text.pdf.BaseFont.IDENTITY_H,
+                            iTextSharp.text.pdf.BaseFont.NOT_EMBEDDED
+                            );
+                    iTextSharp.text.Font f = new iTextSharp.text.Font(baseFont, 12);
+                    iTextSharp.text.Font paragraphFont = new iTextSharp.text.Font(baseFont, 20, iTextSharp.text.Font.BOLD);
 
-                document.Open();
+                    document.Open();
 
-                if (template.PrintBackground)
-                {
-                    document.Add(jpg);
-                }
+                    if (template.PrintBackground)
+                    {
+                        iTextSharp.text.Image jpg = null;
+                        string imageFilePath = Server.MapPath(@"~/images/pdf.jpg");
+                        jpg = iTextSharp.text.Image.GetInstance(imageFilePath);
+                        jpg.SetAbsolutePosition(0, 0);
+                        jpg.ScaleToFit(600, 950);
+                        jpg.Alignment = iTextSharp.text.Image.UNDERLYING;
+                        document.Add(jpg);
+                    }
 
-                var paragraph = new Paragraph(title, paragraphFont);
-                paragraph.Alignment = Element.ALIGN_CENTER;
-                paragraph.SpacingAfter = 20;
-                document.Add(paragraph);
-                PdfPTable table = new PdfPTable(columnCount);
+                    var paragraph = new Paragraph(title, paragraphFont);
+                    paragraph.Alignment = Element.ALIGN_CENTER;
+                    paragraph.SpacingAfter = 20;
+                    document.Add(paragraph);
+                    PdfPTable table = new PdfPTable(columnCount);
 
-                PdfPCell cell = null;
+                    PdfPCell cell = null;
 
-                cell = new PdfPCell(new Phrase("Order Id"));
-                cell.BackgroundColor = BaseColor.GRAY;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                table.AddCell(cell);
-
-                cell = new PdfPCell(new Phrase("Exemplar Id"));
-                cell.BackgroundColor = BaseColor.GRAY;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                table.AddCell(cell);
-
-                if (template.PrintEditionTitle)
-                {
-                    cell = new PdfPCell(new Phrase("Edition title"));
+                    cell = new PdfPCell(new Phrase("Order Id"));
                     cell.BackgroundColor = BaseColor.GRAY;
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     table.AddCell(cell);
-                }                  
 
-                cell = new PdfPCell(new Phrase("Date of issue"));
-                cell.BackgroundColor = BaseColor.GRAY;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                table.AddCell(cell);
+                    cell = new PdfPCell(new Phrase("Exemplar Id"));
+                    cell.BackgroundColor = BaseColor.GRAY;
+                    cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                    table.AddCell(cell);
 
-                cell = new PdfPCell(new Phrase("Expiry date"));
-                cell.BackgroundColor = BaseColor.GRAY;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                table.AddCell(cell);
-
-                foreach (var order in orders)
-                {
-                    table.AddCell(order.ReaderOrderId.ToString());
-                    table.AddCell(order.ExemplarId.ToString());
                     if (template.PrintEditionTitle)
                     {
-                        table.AddCell(new Phrase(order.Exemplar.Edition.EditionTitle, f));
+                        cell = new PdfPCell(new Phrase("Edition title"));
+                        cell.BackgroundColor = BaseColor.GRAY;
+                        cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                        table.AddCell(cell);
                     }
-                    table.AddCell(order.ReaderOrderDateOfIssue.ToString(dateFormat, new CultureInfo("en-US")));
-                    table.AddCell(order.ReaderOrderExpiryDate.ToString(dateFormat, new CultureInfo("en-US")));
-                }
 
-                document.Add(table);
-                document.Close();
-                writer.Close();
-                ms.Close();
-                Response.ContentType = "pdf/application";
-                Response.AddHeader("content-disposition", "attachment;filename=Order report.pdf");
-                Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                Response.OutputStream.Write(ms.GetBuffer(), 0, ms.GetBuffer().Length);
+                    cell = new PdfPCell(new Phrase("Date of issue"));
+                    cell.BackgroundColor = BaseColor.GRAY;
+                    cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                    table.AddCell(cell);
+
+                    cell = new PdfPCell(new Phrase("Expiry date"));
+                    cell.BackgroundColor = BaseColor.GRAY;
+                    cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                    table.AddCell(cell);
+
+                    foreach (var order in orders)
+                    {
+                        table.AddCell(order.ReaderOrderId.ToString());
+                        table.AddCell(order.ExemplarId.ToString());
+                        if (template.PrintEditionTitle)
+                        {
+                            table.AddCell(new Phrase(order.Exemplar.Edition.EditionTitle, f));
+                        }
+                        table.AddCell(order.ReaderOrderDateOfIssue.ToString(dateFormat, new CultureInfo("en-US")));
+                        table.AddCell(order.ReaderOrderExpiryDate.ToString(dateFormat, new CultureInfo("en-US")));
+                    }
+
+                    document.Add(table);
+                    document.Close();
+                    writer.Close();
+                    ms.Close();
+                    Response.ContentType = "pdf/application";
+                    Response.AddHeader("content-disposition", "attachment;filename=Order report.pdf");
+                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                    Response.OutputStream.Write(ms.GetBuffer(), 0, ms.GetBuffer().Length);
+                }
             }
+            else
+            {
+                Response.Write("<h2>Error!</h2>");
+                }
         }
 
         protected override void Dispose(bool disposing)
