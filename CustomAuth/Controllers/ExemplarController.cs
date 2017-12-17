@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using DalToWeb.Models;
 using DalToWeb.Repositories;
+using System.Data.SqlClient;
+using CW.ViewModels;
 
 namespace CW.Controllers
 {
@@ -21,6 +23,17 @@ namespace CW.Controllers
         {
             var exemplars = db.Exemplars.Include(e => e.Allocation).Include(e => e.Edition);
             return View(exemplars.ToList());
+        }
+
+        // GET: Exemplar top
+        [Authorize(Roles = "Admin")]
+        public ActionResult Top(int? value)
+        {
+            if (!value.HasValue)
+                value = 100;
+            var exemplarCostParameter = new SqlParameter("@exemplarCost", value);
+            var exemplars = db.Database.SqlQuery<ExemplarViewModel>("dbo.GetExemplarsByCostLevel @exemplarCost", exemplarCostParameter);
+            return View(exemplars.OrderByDescending(ex => ex.ExemplarCost).ToList());
         }
 
         // GET: Exemplar/Details/5

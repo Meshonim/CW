@@ -1,0 +1,52 @@
+﻿@model IEnumerable<CW.ViewModels.ExemplarViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Exemplar Id
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllocationValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EditionTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExemplarCost)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExemplarId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AllocationValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EditionTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExemplarCost)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ExemplarId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ExemplarId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ExemplarId })
+            </td>
+        </tr>
+    }
+
+</table>

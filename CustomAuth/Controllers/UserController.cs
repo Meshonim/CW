@@ -21,6 +21,19 @@ namespace CW.Controllers
         {
             var users = db.Users.Include(u => u.Role);
             users = users.Where(u => u.Role.Name != "Admin");
+
+            string sqlQuery = "SELECT dbo.GetActualOrdersByUser ({0})";
+            Object[] parameters = { 0 };
+            int count = 0;
+            var values = new Dictionary<int, int>();
+            ViewBag.values = values;
+            foreach (var user in users)
+            {
+                parameters[0] = user.Id;              
+                count = db.Database.SqlQuery<int>(sqlQuery, parameters).ToList().FirstOrDefault();
+                ViewBag.values[user.Id] = count;
+            }
+
             return View(users.ToList());
         }
 

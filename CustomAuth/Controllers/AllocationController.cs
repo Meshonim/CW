@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using DalToWeb.Models;
 using DalToWeb.Repositories;
+using CW.ViewModels;
 
 namespace CW.Controllers
 {
@@ -19,7 +20,8 @@ namespace CW.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            return View(db.Allocations.ToList());
+            var result = db.Database.SqlQuery<AllocationViewModel>("SELECT * FROM dbo.vAllocation_Exemplar");
+            return View(result.ToList());
         }
 
         // GET: Allocation/Details/5
